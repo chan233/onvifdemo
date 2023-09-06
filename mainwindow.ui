@@ -18,7 +18,7 @@
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -872,13 +872,190 @@
                <item>
                 <layout class="QHBoxLayout" name="horizontalLayout_36">
                  <item>
-                  <widget class="QComboBox" name="comboBox_11"/>
+                  <widget class="QComboBox" name="comboBox_Xmove">
+                   <property name="currentIndex">
+                    <number>5</number>
+                   </property>
+                   <item>
+                    <property name="text">
+                     <string>0.0</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>0.1</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>0.2</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>0.3</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>0.4</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>0.5</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>0.6</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>0.7</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>0.8</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>0.9</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>1.0</string>
+                    </property>
+                   </item>
+                  </widget>
                  </item>
                  <item>
-                  <widget class="QComboBox" name="comboBox_12"/>
+                  <widget class="QComboBox" name="comboBox_SpeedMove">
+                   <property name="currentIndex">
+                    <number>5</number>
+                   </property>
+                   <item>
+                    <property name="text">
+                     <string>0.0</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>0.1</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>0.2</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>0.3</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>0.4</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>0.5</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>0.6</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>0.7</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>0.8</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>0.9</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>1.0</string>
+                    </property>
+                   </item>
+                  </widget>
                  </item>
                  <item>
-                  <widget class="QComboBox" name="comboBox_13"/>
+                  <widget class="QComboBox" name="comboBox_Ymove">
+                   <property name="currentIndex">
+                    <number>5</number>
+                   </property>
+                   <item>
+                    <property name="text">
+                     <string>0.0</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>0.1</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>0.2</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>0.3</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>0.4</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>0.5</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>0.6</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>0.7</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>0.8</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>0.9</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>1.0</string>
+                    </property>
+                   </item>
+                  </widget>
                  </item>
                 </layout>
                </item>

@@ -7,7 +7,8 @@
 #include <QHostAddress>
 #include <QNetworkInterface>
 
-#include "onvifheads.h"
+// #include "onvifheads.h"
+#include "OnvifDevice.h"
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -20,10 +21,6 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-
-
-    OnvifDeviceClient *onvifDevice;
-    OnvifImagingClient *ImagingClient;
 private slots:
     void on_pushButton_boradcast_clicked();
 
@@ -111,5 +108,6 @@ private:
     bool abusolute = true;
     bool continuous  = false;
     bool relative  = false;
+    OnvifDevice *onvifdevice;
 };
 #endif // MAINWINDOW_H

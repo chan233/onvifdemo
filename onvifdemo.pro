@@ -9,12 +9,14 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    #OnvifDevice.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
-    mainwindow.h \
-    onvifheads.h
+    OnvifDevice.h \
+    mainwindow.h
+    #onvifheads.h
 
 FORMS += \
     mainwindow.ui
@@ -33,4 +35,4 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 INCLUDEPATH+=$$PWD/src/include/
 
-LIBS +=-L$$PWD/src/lib -lonvifX
+LIBS +=-L$$PWD/src/lib -lonvifX -lonvifdevice
