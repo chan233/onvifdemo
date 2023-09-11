@@ -18,7 +18,7 @@
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>2</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -57,7 +57,7 @@
             <item>
              <widget class="QLineEdit" name="lineEdit_password">
               <property name="text">
-               <string>adnub</string>
+               <string>glhr12345</string>
               </property>
              </widget>
             </item>
@@ -87,7 +87,13 @@
              </widget>
             </item>
             <item>
-             <widget class="QComboBox" name="comboBox_2"/>
+             <widget class="QComboBox" name="comboBox_2">
+              <item>
+               <property name="text">
+                <string>http://192.168.1.94/onvif/device_service</string>
+               </property>
+              </item>
+             </widget>
             </item>
            </layout>
           </item>
@@ -278,6 +284,13 @@
              <widget class="QComboBox" name="comboBox_8"/>
             </item>
            </layout>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_init">
+            <property name="text">
+             <string>init</string>
+            </property>
+           </widget>
           </item>
           <item>
            <widget class="QLabel" name="label_11">
@@ -1373,7 +1386,7 @@
      </widget>
     </item>
     <item>
-     <layout class="QVBoxLayout" name="verticalLayout_17">
+     <layout class="QVBoxLayout" name="verticalLayout_17" stretch="0,2,0">
       <item>
        <widget class="QLabel" name="label_23">
         <property name="text">
@@ -1383,6 +1396,9 @@
       </item>
       <item>
        <widget class="QTextBrowser" name="textBrowser_2"/>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_51"/>
       </item>
      </layout>
     </item>

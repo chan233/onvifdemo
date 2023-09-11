@@ -9,6 +9,7 @@
 
 // #include "onvifheads.h"
 #include "OnvifDevice.h"
+#include "viedoframe.h"
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -98,6 +99,14 @@ private slots:
 
     void on_horizontalSlider_Sharpness_sliderMoved(int position);
 
+    void on_pushButton_left_released();
+
+    void on_pushButton_right_released();
+
+    void on_pushButton_9_clicked();
+
+    void on_pushButton_init_clicked();
+
 private:
     QMap <QString , QHostAddress>getIPv4();
     QMap <QString , QHostAddress>m_mapAddresses;
@@ -109,5 +118,7 @@ private:
     bool continuous  = false;
     bool relative  = false;
     OnvifDevice *onvifdevice;
+    ViedoFrame *videoframe;
+    bool init = false;
 };
 #endif // MAINWINDOW_H

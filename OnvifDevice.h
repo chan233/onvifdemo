@@ -38,29 +38,61 @@ private:
     bool isError(int errorcode);
     //interface
 public:
+    //probe
+    bool Probe();
+    //ptz
     bool RelativeMove(float x,float y,float speed);
-    bool AbsoluteMove(float x,float y,float speed);
-    bool ContinuousMove(float x,float y,float speed);
-    bool Zoom(int x);
+    bool AbsoluteMove(float x,float y,float speed =1);
+    bool ContinuousMove(float x,float y,float speed= 1);
+    bool StopMove();
+    bool ZoomIn(int x = -1);
+    bool ZoomOut(int x = 1);
+    bool StopZoom();
     bool FocusMove(float fSpeed);
     bool Stop();
+    //preset
     bool GetPresets();
     bool SetPreset();
-    bool SetImagingSettings();
-    bool GetImagingSettings();
-    bool SetHostname();
-    bool SetIPAddressFilter();
-    bool SetNetworkDefaultGateway();
-    bool SetDNS();
-    bool GetHostname();
-    bool GetIPAddressFilter();
-    bool GetNetworkDefaultGateway();
-    bool GetDNS();
-    bool SetNTP();
-    bool GetNTP();
     bool GotoHomePosition();
     bool SetHomePosition();
-    bool Probe();
+
+    //images
+   // bool SetImagingSettings(float Brightness,float Contrast,float ColorSaturation,float Sharpness);
+     //bool GetImagingSettings();
+    bool SetBrightness(float Brightness);
+    bool SetContrast(float Contrast);
+    bool SetColorSaturation(float ColorSaturation);
+    bool SetSharpness(float Sharpness);
+    float GetBrightness();
+    float GetContrast();
+    float GetColorSaturation();
+    float GetSharpness();
+
+
+    //host
+    QString GetHostname();
+    bool SetHostname(QString name);
+    bool GetNTP();
+    bool SetNTP();
+
+//    bool SetIPAddressFilter();
+//    bool SetNetworkDefaultGateway();
+//    bool SetDNS();
+//    bool GetIPAddressFilter();
+//    bool GetNetworkDefaultGateway();
+//    bool GetDNS();
+    // OSD
+
+    bool GetOSD();
+    bool SetOSD();
+    bool ModifyOSD();
+    bool DelOSD();
+
+
+
+
+
+
 
 
 };

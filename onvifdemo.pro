@@ -9,17 +9,22 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    #OnvifDevice.cpp \
+    OnvifDevice.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    player.cpp \
+    viedoframe.cpp
 
 HEADERS += \
     OnvifDevice.h \
-    mainwindow.h
+    mainwindow.h \
+    player.h \
+    viedoframe.h
     #onvifheads.h
 
 FORMS += \
-    mainwindow.ui
+    mainwindow.ui\
+    viedoframe.ui
 
 TRANSLATIONS += \
     onvifdemo_zh_CN.ts
@@ -33,6 +38,30 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 # linux
 
+
+CONFIG(debug, debug|release){
 INCLUDEPATH+=$$PWD/src/include/
+# LIBS +=-L$$PWD/src/lib -lonvifXd -lonvifdeviced
+#INCLUDEPATH+=/home/chan/Desktop/git/libONVIF/build/install/include
+LIBS +=-L/home/chan/Desktop/git/libONVIF/build/install/lib -lonvifXd
+}
+CONFIG(release, debug|release){
 
 LIBS +=-L$$PWD/src/lib -lonvifX -lonvifdevice
+}
+QMAKE_LFLAGS += -Wl,-rpath=./
+
+INCLUDEPATH += /opt/ffmpeg/include
+
+# ffmpeg
+
+LIBS += -L"/opt/ffmpeg/lib/"
+LIBS += -lavutil \
+        -lavcodec \
+       -lavdevice \
+        -lavfilter \
+        -lavformat \
+        -lavutil \
+        -lswresample \
+        -lswscale
+
