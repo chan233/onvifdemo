@@ -107,6 +107,14 @@ private slots:
 
     void on_pushButton_init_clicked();
 
+    void on_pushButton_GetOSD_clicked();
+
+    void on_pushButton_AddOSD_clicked();
+
+    void on_pushButton_ModifyOSD_clicked();
+
+    void on_pushButton_DelOSD_clicked();
+
 private:
     QMap <QString , QHostAddress>getIPv4();
     QMap <QString , QHostAddress>m_mapAddresses;

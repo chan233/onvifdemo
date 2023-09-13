@@ -18,7 +18,7 @@
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -1206,7 +1206,7 @@
                   </widget>
                  </item>
                  <item>
-                  <widget class="QLineEdit" name="lineEdit_8"/>
+                  <widget class="QLineEdit" name="lineEdit_token"/>
                  </item>
                 </layout>
                </item>
@@ -1220,7 +1220,7 @@
                   </widget>
                  </item>
                  <item>
-                  <widget class="QLineEdit" name="lineEdit_9"/>
+                  <widget class="QLineEdit" name="lineEdit_config"/>
                  </item>
                 </layout>
                </item>
@@ -1274,7 +1274,7 @@
                   </widget>
                  </item>
                  <item>
-                  <widget class="QLineEdit" name="lineEdit_10"/>
+                  <widget class="QLineEdit" name="lineEdit_postion"/>
                  </item>
                 </layout>
                </item>
@@ -1288,7 +1288,7 @@
                   </widget>
                  </item>
                  <item>
-                  <widget class="QLineEdit" name="lineEdit_11"/>
+                  <widget class="QLineEdit" name="lineEdit_font_size"/>
                  </item>
                 </layout>
                </item>
@@ -1327,21 +1327,21 @@
                   </widget>
                  </item>
                  <item>
-                  <widget class="QLineEdit" name="lineEdit_13"/>
+                  <widget class="QLineEdit" name="lineEdit_text"/>
                  </item>
                 </layout>
                </item>
                <item>
                 <layout class="QHBoxLayout" name="horizontalLayout_49">
                  <item>
-                  <widget class="QPushButton" name="pushButton">
+                  <widget class="QPushButton" name="pushButton_GetOSD">
                    <property name="text">
                     <string>获取OSD</string>
                    </property>
                   </widget>
                  </item>
                  <item>
-                  <widget class="QPushButton" name="pushButton_2">
+                  <widget class="QPushButton" name="pushButton_AddOSD">
                    <property name="text">
                     <string>添加OSD</string>
                    </property>
@@ -1352,14 +1352,14 @@
                <item>
                 <layout class="QHBoxLayout" name="horizontalLayout_50">
                  <item>
-                  <widget class="QPushButton" name="pushButton_4">
+                  <widget class="QPushButton" name="pushButton_ModifyOSD">
                    <property name="text">
                     <string>修改OSD</string>
                    </property>
                   </widget>
                  </item>
                  <item>
-                  <widget class="QPushButton" name="pushButton_6">
+                  <widget class="QPushButton" name="pushButton_DelOSD">
                    <property name="text">
                     <string>删除OSD</string>
                    </property>

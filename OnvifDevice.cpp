@@ -92,6 +92,11 @@ struct OnvifDevicePrivate {
     OnvifRecordingClient *mpOnvifRecordingClient;
     OnvifReplayClient *mpOnvifReplayClient;
     QVector<QString> mTokens;
+    QVector<QString> mOSDlist;
+    bool isError(int errorcode);
+    int GetVideoSourceToken(QString *token);
+    QString GetPTZToken();
+    QString GetOSDToken();
 };
 
 OnvifDevice::OnvifDevice(const QUrl &rDeviceEndpoint, QObject *pParent /*= nullptr*/) :
@@ -335,12 +340,7 @@ void OnvifDevice::SetAuth(const QString &rUserName, const QString &rPassword, Au
     mpD->mPassword = rPassword;
 }
 
-bool OnvifDevice::isError(int errorcode){
-    if(errorcode != SOAP_OK){
-        return false;
-    }
-    return true;
-}
+
 bool OnvifDevice::AbsoluteMove(float x,float y,float speed){
 
     Request<_tptz__AbsoluteMove> rRequest;
@@ -355,7 +355,7 @@ bool OnvifDevice::AbsoluteMove(float x,float y,float speed){
     rRequest.Position->PanTilt->x = speed;
     rRequest.Position->PanTilt->y = speed;
     auto response = mpD->mpOnvifPtzClient->AbsoluteMove(rRequest);
-    return isError(response.GetErrorCode());
+    return mpD->isError(response.GetErrorCode());
 
 }
 bool OnvifDevice::RelativeMove(float x,float y,float speed){
@@ -371,7 +371,7 @@ bool OnvifDevice::RelativeMove(float x,float y,float speed){
     rRequest.Translation->PanTilt = new tt__Vector2D;
 
     auto response = mpD->mpOnvifPtzClient->RelativeMove(rRequest);
-    return isError(response.GetErrorCode());
+    return mpD->isError(response.GetErrorCode());
 }
 
 bool OnvifDevice::ContinuousMove(float x,float y,float speed){
@@ -383,7 +383,7 @@ bool OnvifDevice::ContinuousMove(float x,float y,float speed){
     rRequest.Velocity->PanTilt->x = x;
     rRequest.Velocity->PanTilt->y = y;
     auto response = mpD->mpOnvifPtzClient->ContinuousMove(rRequest);
-    return isError(response.GetErrorCode());
+    return mpD->isError(response.GetErrorCode());
 }
 bool OnvifDevice::StopMove(){
     Request<_tptz__Stop> rRequest;
@@ -395,7 +395,7 @@ bool OnvifDevice::StopMove(){
     rRequest.PanTilt = _PanTilt;
     rRequest.Zoom = _Zoom;
     auto response = mpD->mpOnvifPtzClient->Stop(rRequest);
-    return isError(response.GetErrorCode());
+    return mpD->isError(response.GetErrorCode());
 }
 
 
@@ -407,7 +407,7 @@ bool OnvifDevice::ZoomIn(int x){
     rRequest.Velocity->Zoom = new tt__Vector1D;
     rRequest.Velocity->Zoom->x =x;
     auto response = mpD->mpOnvifPtzClient->ContinuousMove(rRequest);
-    return isError(response.GetErrorCode());
+    return mpD->isError(response.GetErrorCode());
 
 }
 bool OnvifDevice::ZoomOut(int x){
@@ -419,7 +419,7 @@ bool OnvifDevice::ZoomOut(int x){
     rRequest.Velocity->Zoom = new tt__Vector1D;
     rRequest.Velocity->Zoom->x = x;
     auto response = mpD->mpOnvifPtzClient->ContinuousMove(rRequest);
-    return isError(response.GetErrorCode());
+    return mpD->isError(response.GetErrorCode());
 }
 bool OnvifDevice::StopZoom(){
     Request<_tptz__Stop> rRequest;
@@ -432,7 +432,7 @@ bool OnvifDevice::StopZoom(){
     rRequest.PanTilt = _PanTilt;
     rRequest.Zoom = _Zoom;
     auto response = mpD->mpOnvifPtzClient->Stop(rRequest);
-    return isError(response.GetErrorCode());
+    return mpD->isError(response.GetErrorCode());
 }
 
 bool OnvifDevice::FocusMove(float fSpeed){
@@ -449,14 +449,14 @@ bool OnvifDevice::FocusMove(float fSpeed){
     rRequest.VideoSourceToken = "VideoSource_1";
     auto response = mpD->mpOnvifImagingClient->Move(rRequest);
 
-    return isError(response.GetErrorCode());
+    return mpD->isError(response.GetErrorCode());
 }
 bool OnvifDevice::Stop(){
     Request<_tptz__Stop> rRequest;
     rRequest.ProfileToken = "Profile_2";
 
     auto response = mpD->mpOnvifPtzClient->Stop(rRequest);
-    return isError(response.GetErrorCode());
+    return mpD->isError(response.GetErrorCode());
 }
 
 bool OnvifDevice::GetPresets(){
@@ -464,7 +464,7 @@ bool OnvifDevice::GetPresets(){
     QString ProfileToken;
     rRequest.ProfileToken = ProfileToken;
     auto response = mpD->mpOnvifPtzClient->GetPresets(rRequest);
-    return isError(response.GetErrorCode());
+    return mpD->isError(response.GetErrorCode());
 }
 
 bool OnvifDevice::SetPreset(){
@@ -475,7 +475,7 @@ bool OnvifDevice::SetPreset(){
     QString ProfileToken;
     rRequest.ProfileToken = ProfileToken;
     auto response = mpD->mpOnvifPtzClient->SetPreset(rRequest);
-    return isError(response.GetErrorCode());
+    return mpD->isError(response.GetErrorCode());
 }
 
 
@@ -500,7 +500,7 @@ bool OnvifDevice::SetPreset(){
 //    rRequest.ImagingSettings->ColorSaturation =_ColorSaturation;
 //    rRequest.ImagingSettings->Sharpness = _Sharpness;
 //    auto response = mpD->mpOnvifImagingClient->SetImagingSettings(rRequest);
-//    return isError(response.GetErrorCode());
+//    return mpD->isError(response.GetErrorCode());
 
 //}
 
@@ -515,7 +515,7 @@ bool OnvifDevice::SetBrightness(float Brightness){
     rRequest.ImagingSettings->Brightness = _Brightness;
 
     auto response = mpD->mpOnvifImagingClient->SetImagingSettings(rRequest);
-    return isError(response.GetErrorCode());
+    return mpD->isError(response.GetErrorCode());
 
 }
 
@@ -530,7 +530,7 @@ bool OnvifDevice::SetContrast(float Contrast){
     rRequest.ImagingSettings->Contrast = _Contrast;
 
     auto response = mpD->mpOnvifImagingClient->SetImagingSettings(rRequest);
-    return isError(response.GetErrorCode());
+    return mpD->isError(response.GetErrorCode());
 
 }
 
@@ -546,7 +546,7 @@ bool OnvifDevice::SetColorSaturation(float ColorSaturation){
     rRequest.ImagingSettings->ColorSaturation = _ColorSaturation;
 
     auto response = mpD->mpOnvifImagingClient->SetImagingSettings(rRequest);
-    return isError(response.GetErrorCode());
+    return mpD->isError(response.GetErrorCode());
 
 }
 
@@ -562,7 +562,7 @@ bool OnvifDevice::SetSharpness(float Sharpness){
     rRequest.ImagingSettings->Sharpness = _Sharpness;
 
     auto response = mpD->mpOnvifImagingClient->SetImagingSettings(rRequest);
-    return isError(response.GetErrorCode());
+    return mpD->isError(response.GetErrorCode());
 
 }
 
@@ -574,7 +574,7 @@ bool OnvifDevice::SetSharpness(float Sharpness){
 //    rRequest.VideoSourceToken = "VideoSource_1";
 
 //    auto response = mpD->mpOnvifImagingClient->GetImagingSettings(rRequest);
-//    return isError(response.GetErrorCode());
+//    return mpD->isError(response.GetErrorCode());
 
 //}
 
@@ -585,7 +585,7 @@ float OnvifDevice::GetBrightness(){
     QString ProfileToken;
     rRequest.VideoSourceToken = ProfileToken;
     auto response = mpD->mpOnvifImagingClient->GetImagingSettings(rRequest);
-    if(isError(response.GetErrorCode())){
+    if(mpD->isError(response.GetErrorCode())){
         return 0;
     }
     return *(response.GetResultObject()->ImagingSettings->Brightness);
@@ -599,7 +599,7 @@ float OnvifDevice::GetContrast(){
     rRequest.VideoSourceToken = ProfileToken;
     auto response = mpD->mpOnvifImagingClient->GetImagingSettings(rRequest);
 
-    if(isError(response.GetErrorCode())){
+    if(mpD->isError(response.GetErrorCode())){
         return 0;
     }
     return *(response.GetResultObject()->ImagingSettings->Contrast);
@@ -614,7 +614,7 @@ float OnvifDevice::GetColorSaturation(){
     QString ProfileToken;
     rRequest.VideoSourceToken = ProfileToken;
     auto response = mpD->mpOnvifImagingClient->GetImagingSettings(rRequest);
-    if(isError(response.GetErrorCode())){
+    if(mpD->isError(response.GetErrorCode())){
         return 0;
     }
     return *(response.GetResultObject()->ImagingSettings->ColorSaturation);
@@ -628,7 +628,7 @@ float OnvifDevice::GetSharpness(){
     QString ProfileToken;
     rRequest.VideoSourceToken = ProfileToken;
     auto response = mpD->mpOnvifImagingClient->GetImagingSettings(rRequest);
-    if(isError(response.GetErrorCode())){
+    if(mpD->isError(response.GetErrorCode())){
         return 0;
     }
     return *(response.GetResultObject()->ImagingSettings->Sharpness);
@@ -641,17 +641,62 @@ bool OnvifDevice::SetHostname(QString name){
 
     HostnameRequest.Name = name;
     auto response =    mpD->mpOnvifDeviceClient->SetHostname(HostnameRequest);
-    return isError(response.GetErrorCode());
+    return mpD->isError(response.GetErrorCode());
 
 
 }
-bool OnvifDevice::GetOSD(){
+bool OnvifDevice::GetOSDs(QVector<struOSD>& OSDs){
 
 
-    Request<_trt__GetOSD> request;
-    request.OSDToken;
-    auto response =   mpD->mpOnvifMediaClient->GetOSD(request);
-    return isError(response.GetErrorCode());
+    Request<_trt__GetOSDs> request;
+    QString *token = new QString;
+    if(mpD->GetVideoSourceToken(token) != 0){
+        return false;
+    }
+
+    request.ConfigurationToken = token;
+    auto response =   mpD->mpOnvifMediaClient->GetOSDs(request);
+    if(mpD->isError(response.GetErrorCode())){
+        return false;
+    }
+
+
+    if(!mpD->mOSDlist.empty()){
+        mpD->mOSDlist.clear();
+    }
+    for (auto OSD : response.GetResultObject()->OSDs){
+        qDebug()  <<"osd token ==>" << OSD->token << endl;
+        mpD->mOSDlist << OSD->token;
+        if (OSD->TextString->PlainText != NULL){
+            QString  text = *OSD->TextString->PlainText;
+
+            qDebug() << text ;
+        }
+
+
+        struOSD o  = {0};
+        o.token = OSD->token;
+        // config?
+        // pos?
+        o.x = *OSD->Position->Pos->x;
+        o.y = *OSD->Position->Pos->y;
+        o.FontSize = *OSD->TextString->FontSize;
+        o.Type =  OSD->Position->Type;
+        o.PlainText = *OSD->TextString->PlainText;
+
+
+        OSDs << o;
+    }
+
+    return true;
+}
+bool OnvifDevice::CreateOSD(){
+    Request<_trt__CreateOSD> request;
+
+
+    request.OSD->Position;
+    auto response =   mpD->mpOnvifMediaClient->CreateOSD(request);
+    return mpD->isError(response.GetErrorCode());
 
 }
 bool OnvifDevice::SetOSD(){
@@ -660,20 +705,16 @@ bool OnvifDevice::SetOSD(){
     request.OSD->VideoSourceConfigurationToken;
     request.OSD->Position;
     auto response =   mpD->mpOnvifMediaClient->SetOSD(request);
-    return isError(response.GetErrorCode());
+    return mpD->isError(response.GetErrorCode());
 
 
 }
-bool OnvifDevice::ModifyOSD(){
-    Request<_trt__DeleteOSD> request;
-    auto response =   mpD->mpOnvifMediaClient->DeleteOSD(request);
-    return isError(response.GetErrorCode());
 
-}
-bool OnvifDevice::DelOSD(){
+bool OnvifDevice::DelOSD(QString OSDToken){
     Request<_trt__DeleteOSD> request;
+    request.OSDToken = OSDToken;
     auto response =   mpD->mpOnvifMediaClient->DeleteOSD(request);
-    return isError(response.GetErrorCode());
+    return mpD->isError(response.GetErrorCode());
 
 }
 //bool OnvifDevice::SetIPAddressFilter(){
@@ -681,7 +722,7 @@ bool OnvifDevice::DelOSD(){
 
 //    Request<_tds__SetIPAddressFilter> SetIPAddressFilterRequest;
 //    auto response =    mpD->mpOnvifDeviceClient->SetIPAddressFilter(SetIPAddressFilterRequest);
-//    return isError(response.GetErrorCode());
+//    return mpD->isError(response.GetErrorCode());
 
 
 //}
@@ -690,21 +731,21 @@ bool OnvifDevice::DelOSD(){
 //    Request<_tds__SetNetworkDefaultGateway> SetNetworkDefaultGatewayRequest;
 //    auto response =    mpD->mpOnvifDeviceClient->SetNetworkDefaultGateway(SetNetworkDefaultGatewayRequest);
 
-//    return isError(response.GetErrorCode());
+//    return mpD->isError(response.GetErrorCode());
 
 //}
 //bool OnvifDevice::SetDNS(){
 
 //    Request<_tds__SetDNS> SetDNSRequest;
 //    auto response =    mpD->mpOnvifDeviceClient->SetDNS(SetDNSRequest);
-//    return isError(response.GetErrorCode());
+//    return mpD->isError(response.GetErrorCode());
 //}
 
 QString OnvifDevice::GetHostname(){
     Request<_tds__GetHostname> HostnameRequest;
 
     auto response = mpD->mpOnvifDeviceClient->GetHostname(HostnameRequest);
-    if(isError(response.GetErrorCode())){
+    if(mpD->isError(response.GetErrorCode())){
         return "";
     }
     return *(response.GetResultObject()->HostnameInformation->Name);
@@ -717,7 +758,7 @@ QString OnvifDevice::GetHostname(){
 
 //    Request<_tds__GetIPAddressFilter> GetIPAddressFilterRequest;
 //    auto response = mpD->mpOnvifDeviceClient->GetIPAddressFilter(GetIPAddressFilterRequest);
-//    return isError(response.GetErrorCode());
+//    return mpD->isError(response.GetErrorCode());
 
 
 //}
@@ -727,7 +768,7 @@ QString OnvifDevice::GetHostname(){
 //    Request<_tds__GetNetworkDefaultGateway> GetNetworkDefaultGatewayRequest;
 //    auto response = mpD->mpOnvifDeviceClient->GetNetworkDefaultGateway(GetNetworkDefaultGatewayRequest);
 
-//    return isError(response.GetErrorCode());
+//    return mpD->isError(response.GetErrorCode());
 
 //}
 
@@ -735,27 +776,27 @@ QString OnvifDevice::GetHostname(){
 
 //    Request<_tds__GetDNS> GetDNSRequest;
 //    auto response = mpD->mpOnvifDeviceClient->GetDNS(GetDNSRequest);
-//    return isError(response.GetErrorCode());
+//    return mpD->isError(response.GetErrorCode());
 //}
 
 bool OnvifDevice::SetNTP(){
     Request<_tds__SetNTP> request;
 
     auto response = mpD->mpOnvifDeviceClient->SetNTP(request);
-    return isError(response.GetErrorCode());
+    return mpD->isError(response.GetErrorCode());
 }
 bool OnvifDevice::GetNTP(){
     Request<_tds__GetNTP> request;
 
     auto response = mpD->mpOnvifDeviceClient->GetNTP(request);
 
-    return isError(response.GetErrorCode());
+    return mpD->isError(response.GetErrorCode());
 }
 
 bool OnvifDevice::GotoHomePosition(){
     Request<_tptz__GotoHomePosition> rRequest;
     auto response = mpD->mpOnvifPtzClient->GotoHomePosition(rRequest);
-    return isError(response.GetErrorCode());
+    return mpD->isError(response.GetErrorCode());
 }
 
 
@@ -764,7 +805,7 @@ bool OnvifDevice::SetHomePosition(){
     Request<_tptz__SetHomePosition> rRequest;
 
     auto response = mpD->mpOnvifPtzClient->SetHomePosition(rRequest);
-    return isError(response.GetErrorCode());
+    return mpD->isError(response.GetErrorCode());
 }
 
 bool OnvifDevice::Probe(){
@@ -830,6 +871,42 @@ bool OnvifDevice::Probe(){
             qDebug() << probeResponseOne.GetCompleteFault();
         else
             qDebug() << probeResponseTwo.GetCompleteFault();
+    }
+    return true;
+}
+int OnvifDevicePrivate::GetVideoSourceToken(QString *token)
+{
+
+    Request<_trt__GetProfiles> request;
+    auto response = this->mpOnvifMediaClient->GetProfiles(request);
+    if (SOAP_OK != response.GetErrorCode())
+    {
+        qDebug()<< "GetProfiles error.\n";
+        return -1;
+    }
+    ///< 可能会有好几路流，相应的也会有好几个profile,这里只取第一路码流
+    *token = response.GetResultObject()->Profiles[0]->VideoSourceConfiguration->token;
+    return 0;
+}
+QString OnvifDevicePrivate::GetPTZToken(){
+    Request<_trt__GetProfiles> request;
+    auto response = this->mpOnvifMediaClient->GetProfiles(request);
+    if (SOAP_OK != response.GetErrorCode())
+    {
+        qDebug()<< "GetProfiles error.\n";
+        return "";
+    }
+    ///< 可能会有好几路流，相应的也会有好几个profile,这里只取第一路码流
+
+    QString  token = response.GetResultObject()->Profiles[0]->PTZConfiguration->token;
+    return token;
+}
+QString OnvifDevicePrivate::GetOSDToken(){
+    return "";
+}
+bool OnvifDevicePrivate::isError(int errorcode){
+    if(errorcode != SOAP_OK){
+        return false;
     }
     return true;
 }

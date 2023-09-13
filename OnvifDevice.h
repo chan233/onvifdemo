@@ -20,12 +20,21 @@
 #include <QUrl>
 
 
+typedef  struct struOSD{
+    QString token;
+    QString PlainText;
+    QString Type;
+    float x;
+    float y;
+    int FontSize;
+}struOSD;
 struct OnvifDevicePrivate;
 
 class OnvifDevice : public QObject {
 
     Q_OBJECT
     //init
+
 public:
     OnvifDevice(const QUrl &rDeviceEndpoint, QObject *pParent = nullptr);
     virtual ~OnvifDevice();
@@ -35,7 +44,8 @@ public:
 
 private:
     OnvifDevicePrivate *mpD;
-    bool isError(int errorcode);
+
+
     //interface
 public:
     //probe
@@ -57,8 +67,8 @@ public:
     bool SetHomePosition();
 
     //images
-   // bool SetImagingSettings(float Brightness,float Contrast,float ColorSaturation,float Sharpness);
-     //bool GetImagingSettings();
+    // bool SetImagingSettings(float Brightness,float Contrast,float ColorSaturation,float Sharpness);
+    //bool GetImagingSettings();
     bool SetBrightness(float Brightness);
     bool SetContrast(float Contrast);
     bool SetColorSaturation(float ColorSaturation);
@@ -75,24 +85,18 @@ public:
     bool GetNTP();
     bool SetNTP();
 
-//    bool SetIPAddressFilter();
-//    bool SetNetworkDefaultGateway();
-//    bool SetDNS();
-//    bool GetIPAddressFilter();
-//    bool GetNetworkDefaultGateway();
-//    bool GetDNS();
+    //    bool SetIPAddressFilter();
+    //    bool SetNetworkDefaultGateway();
+    //    bool SetDNS();
+    //    bool GetIPAddressFilter();
+    //    bool GetNetworkDefaultGateway();
+    //    bool GetDNS();
+
     // OSD
-
-    bool GetOSD();
-    bool SetOSD();
-    bool ModifyOSD();
-    bool DelOSD();
-
-
-
-
-
-
+    bool  GetOSDs( QVector<struOSD>& osds);
+    bool CreateOSD();       //add
+    bool SetOSD();          //modify
+    bool DelOSD(QString OSDToken);
 
 
 };

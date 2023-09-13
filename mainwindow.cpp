@@ -373,3 +373,35 @@ void MainWindow::on_pushButton_init_clicked()
 
 }
 
+
+void MainWindow::on_pushButton_GetOSD_clicked()
+{
+    QVector<struOSD> OSDs;
+    if(!onvifdevice->GetOSDs(OSDs)){
+        return;
+    }
+
+    ui->lineEdit_token->setText(OSDs.at(0).token);
+
+}
+
+
+void MainWindow::on_pushButton_AddOSD_clicked()
+{
+    onvifdevice->CreateOSD();
+}
+
+
+void MainWindow::on_pushButton_ModifyOSD_clicked()
+{
+
+    onvifdevice->SetOSD();
+}
+
+
+void MainWindow::on_pushButton_DelOSD_clicked()
+{
+
+    onvifdevice->DelOSD(ui->lineEdit_token->text());
+}
+
