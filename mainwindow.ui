@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>979</width>
+    <width>1274</width>
     <height>866</height>
    </rect>
   </property>
@@ -18,7 +18,7 @@
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>3</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -320,7 +320,7 @@
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout_12">
             <item>
-             <widget class="QPushButton" name="pushButton_3">
+             <widget class="QPushButton" name="pushButton_GetInformation">
               <property name="text">
                <string>一键获取</string>
               </property>
@@ -360,7 +360,7 @@
                <item>
                 <layout class="QHBoxLayout" name="horizontalLayout_14">
                  <item>
-                  <widget class="QPushButton" name="pushButton_5">
+                  <widget class="QPushButton" name="pushButton_clear">
                    <property name="text">
                     <string>清空数据</string>
                    </property>
@@ -378,14 +378,20 @@
                <item>
                 <layout class="QHBoxLayout" name="horizontalLayout_15">
                  <item>
-                  <widget class="QPushButton" name="pushButton_7">
+                  <widget class="QPushButton" name="pushButton_CapPic">
+                   <property name="enabled">
+                    <bool>true</bool>
+                   </property>
                    <property name="text">
                     <string>抓拍图片</string>
+                   </property>
+                   <property name="checkable">
+                    <bool>false</bool>
                    </property>
                   </widget>
                  </item>
                  <item>
-                  <widget class="QPushButton" name="pushButton_8">
+                  <widget class="QPushButton" name="pushButton_RSS">
                    <property name="text">
                     <string>订阅事件</string>
                    </property>
@@ -1213,7 +1219,7 @@
                <item>
                 <layout class="QHBoxLayout" name="horizontalLayout_43">
                  <item>
-                  <widget class="QLabel" name="label_20">
+                  <widget class="QLabel" name="label_config">
                    <property name="text">
                     <string>配置</string>
                    </property>
@@ -1234,7 +1240,7 @@
                   </widget>
                  </item>
                  <item>
-                  <widget class="QComboBox" name="comboBox_14">
+                  <widget class="QComboBox" name="comboBox_Position">
                    <item>
                     <property name="text">
                      <string>自定义</string>
@@ -1295,14 +1301,14 @@
                <item>
                 <layout class="QHBoxLayout" name="horizontalLayout_48" stretch="1,9">
                  <item>
-                  <widget class="QLabel" name="label_26">
+                  <widget class="QLabel" name="label_OSDType">
                    <property name="text">
                     <string>类型</string>
                    </property>
                   </widget>
                  </item>
                  <item>
-                  <widget class="QComboBox" name="comboBox_15">
+                  <widget class="QComboBox" name="comboBox_OSDType">
                    <item>
                     <property name="text">
                      <string>日期时间</string>
@@ -1386,7 +1392,14 @@
      </widget>
     </item>
     <item>
-     <layout class="QVBoxLayout" name="verticalLayout_17" stretch="0,2,0">
+     <layout class="QVBoxLayout" name="verticalLayout_17" stretch="0,0,2,0">
+      <item>
+       <widget class="QCheckBox" name="checkBox_2">
+        <property name="text">
+         <string>CheckBox</string>
+        </property>
+       </widget>
+      </item>
       <item>
        <widget class="QLabel" name="label_23">
         <property name="text">
@@ -1409,7 +1422,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>979</width>
+     <width>1274</width>
      <height>23</height>
     </rect>
    </property>

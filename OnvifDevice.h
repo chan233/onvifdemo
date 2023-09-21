@@ -22,8 +22,8 @@
 
 typedef  struct struOSD{
     QString token;
-    QString PlainText;
-    QString Type;
+    QString PlainText; 
+    QString PositionType;
     float x;
     float y;
     int FontSize;
@@ -49,7 +49,8 @@ private:
     //interface
 public:
     //probe
-    bool Probe();
+    bool MulticastProbe();
+     bool UnicastProbe();
     //ptz
     bool RelativeMove(float x,float y,float speed);
     bool AbsoluteMove(float x,float y,float speed =1);
@@ -84,6 +85,8 @@ public:
     bool SetHostname(QString name);
     bool GetNTP();
     bool SetNTP();
+    bool GetSystemDateAndTime(QDateTime &dateTime);
+    bool SetSystemDateAndTime(const QDateTime& dateTime);
 
     //    bool SetIPAddressFilter();
     //    bool SetNetworkDefaultGateway();
@@ -94,8 +97,8 @@ public:
 
     // OSD
     bool  GetOSDs( QVector<struOSD>& osds);
-    bool CreateOSD();       //add
-    bool SetOSD();          //modify
+    bool CreateOSD(const struOSD &osdparm);       //add
+    bool SetOSD(const struOSD &osdparm);          //modify
     bool DelOSD(QString OSDToken);
 
 

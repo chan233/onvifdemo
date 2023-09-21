@@ -95,7 +95,7 @@ struct OnvifDevicePrivate {
     QVector<QString> mOSDlist;
     bool isError(int errorcode);
     int GetVideoSourceToken(QString *token);
-    QString GetPTZToken();
+    QString GetToken(int flag);
     QString GetOSDToken();
 };
 
@@ -461,9 +461,14 @@ bool OnvifDevice::Stop(){
 
 bool OnvifDevice::GetPresets(){
     Request<_tptz__GetPresets> rRequest;
-    QString ProfileToken;
-    rRequest.ProfileToken = ProfileToken;
+
+    rRequest.ProfileToken = mpD->GetToken(1);
     auto response = mpD->mpOnvifPtzClient->GetPresets(rRequest);
+    auto preset = response.GetResultObject()->Preset;
+
+    for(auto p : preset){
+        qDebug()<< p->Name;
+    }
     return mpD->isError(response.GetErrorCode());
 }
 
@@ -474,6 +479,7 @@ bool OnvifDevice::SetPreset(){
     Request<_tptz__SetPreset> rRequest;
     QString ProfileToken;
     rRequest.ProfileToken = ProfileToken;
+    //rRequest.PresetToken = "perest_1";
     auto response = mpD->mpOnvifPtzClient->SetPreset(rRequest);
     return mpD->isError(response.GetErrorCode());
 }
@@ -667,6 +673,7 @@ bool OnvifDevice::GetOSDs(QVector<struOSD>& OSDs){
     for (auto OSD : response.GetResultObject()->OSDs){
         qDebug()  <<"osd token ==>" << OSD->token << endl;
         mpD->mOSDlist << OSD->token;
+
         if (OSD->TextString->PlainText != NULL){
             QString  text = *OSD->TextString->PlainText;
 
@@ -676,12 +683,10 @@ bool OnvifDevice::GetOSDs(QVector<struOSD>& OSDs){
 
         struOSD o  = {0};
         o.token = OSD->token;
-        // config?
-        // pos?
         o.x = *OSD->Position->Pos->x;
         o.y = *OSD->Position->Pos->y;
         o.FontSize = *OSD->TextString->FontSize;
-        o.Type =  OSD->Position->Type;
+        o.PositionType =  OSD->Position->Type;
         o.PlainText = *OSD->TextString->PlainText;
 
 
@@ -690,16 +695,43 @@ bool OnvifDevice::GetOSDs(QVector<struOSD>& OSDs){
 
     return true;
 }
-bool OnvifDevice::CreateOSD(){
+bool OnvifDevice::CreateOSD(const struOSD &osdparm){
     Request<_trt__CreateOSD> request;
+    request.OSD->Type = tt__OSDType::Text;
+    int *size = new int;
+    *size = osdparm.FontSize;
+    request.OSD->TextString->FontSize =size;
+    request.OSD->Position->Type = osdparm.PositionType;
+    if(request.OSD->Position->Type != "Custom"){
+        float *x = new float;
+        float *y = new float;
+        *x = osdparm.x;
+        *y = osdparm.y;
+        request.OSD->Position->Pos->x = x;
+        request.OSD->Position->Pos->y = y;
+    }
 
-
-    request.OSD->Position;
     auto response =   mpD->mpOnvifMediaClient->CreateOSD(request);
     return mpD->isError(response.GetErrorCode());
 
 }
-bool OnvifDevice::SetOSD(){
+void tranformPos(float x, float y)
+{
+    int pox = 0;
+    int poy = 0;
+
+    // 获取分辨率
+    int width = 0;
+    int height = 0;
+    //getsolution(&width, &height);
+
+    // 转换为实际坐标 -> pox poy
+    pox = (1.0 + x) * ((float)width) / 2.0;
+    poy = (1.0 - y) * ((float)height) / 2.0;
+
+    //onvif_debug(6, "org pos: (%.2f, %.2f) --> (%d, %d)\n", x, y, pox, poy);
+}
+bool OnvifDevice::SetOSD(const struOSD &osdparm){
 
     Request<_trt__SetOSD> request;
     request.OSD->VideoSourceConfigurationToken;
@@ -787,12 +819,39 @@ bool OnvifDevice::SetNTP(){
 }
 bool OnvifDevice::GetNTP(){
     Request<_tds__GetNTP> request;
-
     auto response = mpD->mpOnvifDeviceClient->GetNTP(request);
-
     return mpD->isError(response.GetErrorCode());
 }
 
+
+bool OnvifDevice::GetSystemDateAndTime(QDateTime &dateTime){
+
+    Request<_tds__GetSystemDateAndTime> request;
+    auto response = mpD->mpOnvifDeviceClient->GetSystemDateAndTime(request);
+    auto time = response.GetResultObject()->SystemDateAndTime;
+    QDate date(time->UTCDateTime->Date->Year, time->UTCDateTime->Date->Month,time->UTCDateTime->Date->Day);
+    QTime qtime(  time->UTCDateTime->Time->Hour,time->UTCDateTime->Time->Minute,time->UTCDateTime->Time->Second);
+    dateTime.setDate(date);
+    dateTime.setTime(qtime);
+    return mpD->isError(response.GetErrorCode());
+}
+
+bool OnvifDevice::SetSystemDateAndTime(const QDateTime& dateTime){
+
+    Request<_tds__SetSystemDateAndTime> request;
+    request.UTCDateTime->Date->Year = dateTime.date().year();
+    request.UTCDateTime->Date->Month= dateTime.date().month();
+    request.UTCDateTime->Date->Day= dateTime.date().day();
+
+
+    request.UTCDateTime->Time->Hour  = dateTime.time().hour();
+    request.UTCDateTime->Time->Minute= dateTime.time().minute();
+    request.UTCDateTime->Time->Second= dateTime.time().second();
+
+    auto response = mpD->mpOnvifDeviceClient->SetSystemDateAndTime(request);
+
+    return mpD->isError(response.GetErrorCode());
+}
 bool OnvifDevice::GotoHomePosition(){
     Request<_tptz__GotoHomePosition> rRequest;
     auto response = mpD->mpOnvifPtzClient->GotoHomePosition(rRequest);
@@ -807,8 +866,10 @@ bool OnvifDevice::SetHomePosition(){
     auto response = mpD->mpOnvifPtzClient->SetHomePosition(rRequest);
     return mpD->isError(response.GetErrorCode());
 }
-
-bool OnvifDevice::Probe(){
+bool OnvifDevice::UnicastProbe(){
+    return false;
+}
+bool OnvifDevice::MulticastProbe(){
     auto ctxBuilder = SoapCtx::Builder();
 
     ctxBuilder.SetSendTimeout(1000);
@@ -888,7 +949,7 @@ int OnvifDevicePrivate::GetVideoSourceToken(QString *token)
     *token = response.GetResultObject()->Profiles[0]->VideoSourceConfiguration->token;
     return 0;
 }
-QString OnvifDevicePrivate::GetPTZToken(){
+QString OnvifDevicePrivate::GetToken(int flag){
     Request<_trt__GetProfiles> request;
     auto response = this->mpOnvifMediaClient->GetProfiles(request);
     if (SOAP_OK != response.GetErrorCode())
@@ -897,9 +958,13 @@ QString OnvifDevicePrivate::GetPTZToken(){
         return "";
     }
     ///< 可能会有好几路流，相应的也会有好几个profile,这里只取第一路码流
+    if(flag == 1){
+        return response.GetResultObject()->Profiles[0]->PTZConfiguration->token;
+    }
+    else{
+        return response.GetResultObject()->Profiles[0]->VideoSourceConfiguration->token;
+    }
 
-    QString  token = response.GetResultObject()->Profiles[0]->PTZConfiguration->token;
-    return token;
 }
 QString OnvifDevicePrivate::GetOSDToken(){
     return "";

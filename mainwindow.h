@@ -103,7 +103,7 @@ private slots:
 
     void on_pushButton_right_released();
 
-    void on_pushButton_9_clicked();
+
 
     void on_pushButton_init_clicked();
 
@@ -115,7 +115,16 @@ private slots:
 
     void on_pushButton_DelOSD_clicked();
 
+    void on_pushButton_GetTIme_clicked();
+
+    void on_pushButton_SetTime_clicked();
+
+
+
+    void on_comboBox_Position_currentIndexChanged(int index);
+
 private:
+    void hideButton();
     QMap <QString , QHostAddress>getIPv4();
     QMap <QString , QHostAddress>m_mapAddresses;
     Ui::MainWindow *ui;

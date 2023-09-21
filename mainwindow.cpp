@@ -9,6 +9,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 
 
+    hideButton();
     getIPv4();
     videoframe = new ViedoFrame;
     ui->verticalLayout_17->addWidget(videoframe);
@@ -23,7 +24,27 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
+void MainWindow::hideButton(){
+    ui->pushButton_clear->setVisible(false);
+    ui->pushButton_SystemReboot->setVisible(false);
+    ui->pushButton_CapPic->setVisible(false);
+    ui->pushButton_RSS->setVisible(false);
+    ui->pushButton_GetNTP->setVisible(false);
+    ui->pushButton_SetNTP->setVisible(false);
+    ui->pushButton_GetInformation->setVisible(false);
+    ui->pushButton_GetDeviceInformation->setVisible(false);
+    ui->label_config->setVisible(false);
+    ui->lineEdit_config->setVisible(false);
 
+    ui->comboBox_OSDType->setVisible(false);
+
+    ui->label_OSDType->setVisible(false);
+
+
+
+
+
+}
 QMap<QString , QHostAddress> MainWindow::getIPv4(){
     QList<QHostAddress> Addresses = QNetworkInterface::allAddresses();
     for(auto Address : Addresses){
@@ -53,7 +74,7 @@ void MainWindow::on_pushButton_GetDeviceInformation_clicked()
 void MainWindow::on_pushButton_Probe_clicked()
 {
 
-    onvifdevice->Probe();
+    onvifdevice->MulticastProbe();
 
 }
 
@@ -251,6 +272,22 @@ void MainWindow::on_pushButton_SetNTP_clicked()
 
     onvifdevice->SetNTP();
 }
+void MainWindow::on_pushButton_GetTIme_clicked()
+{
+
+    QDateTime dateTime;
+    onvifdevice->GetSystemDateAndTime(dateTime);
+    ui->dateTimeEdit->setDateTime(dateTime);
+
+}
+
+
+void MainWindow::on_pushButton_SetTime_clicked()
+{
+    QDateTime dateTime =  ui->dateTimeEdit->dateTime();
+    onvifdevice->SetSystemDateAndTime(dateTime);
+
+}
 
 
 void MainWindow::on_pushButton_GetHost_clicked()
@@ -351,10 +388,6 @@ void MainWindow::on_pushButton_right_released()
 }
 
 
-void MainWindow::on_pushButton_9_clicked()
-{
-
-}
 
 
 void MainWindow::on_pushButton_init_clicked()
@@ -380,7 +413,6 @@ void MainWindow::on_pushButton_GetOSD_clicked()
     if(!onvifdevice->GetOSDs(OSDs)){
         return;
     }
-
     ui->lineEdit_token->setText(OSDs.at(0).token);
 
 }
@@ -388,14 +420,38 @@ void MainWindow::on_pushButton_GetOSD_clicked()
 
 void MainWindow::on_pushButton_AddOSD_clicked()
 {
-    onvifdevice->CreateOSD();
+    struOSD osd = {0};
+    int index = ui->comboBox_Position->currentIndex();
+    if(index == 0){
+        osd.PositionType = "Custom";
+
+    }
+    else{
+        switch(index){
+        case 1:
+            osd.PositionType = "UpperLeft";
+            break;
+        case 2:
+            osd.PositionType = "UpperRight";
+            break;
+        case 3:
+            osd.PositionType = "LowerLeft";
+            break;
+        case 4:
+            osd.PositionType = "LowerRight";
+            break;
+        default:
+            break;
+        }
+    }
+    onvifdevice->CreateOSD(osd);
 }
 
 
 void MainWindow::on_pushButton_ModifyOSD_clicked()
 {
-
-    onvifdevice->SetOSD();
+    struOSD osd;
+    onvifdevice->SetOSD(osd);
 }
 
 
@@ -403,5 +459,21 @@ void MainWindow::on_pushButton_DelOSD_clicked()
 {
 
     onvifdevice->DelOSD(ui->lineEdit_token->text());
+}
+
+
+
+
+
+
+void MainWindow::on_comboBox_Position_currentIndexChanged(int index)
+{
+    if(index !=0){
+        ui->lineEdit_postion->clear();
+        ui->lineEdit_postion->setEnabled(false);
+    }
+    else{
+        ui->lineEdit_postion->setEnabled(true);
+    }
 }
 
