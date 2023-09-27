@@ -125,6 +125,7 @@ private slots:
 
 private:
     void hideButton();
+    struOSD getUIOsd();
     QMap <QString , QHostAddress>getIPv4();
     QMap <QString , QHostAddress>m_mapAddresses;
     Ui::MainWindow *ui;

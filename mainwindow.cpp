@@ -413,18 +413,20 @@ void MainWindow::on_pushButton_GetOSD_clicked()
     if(!onvifdevice->GetOSDs(OSDs)){
         return;
     }
+
+
     ui->lineEdit_token->setText(OSDs.at(0).token);
+    ui->lineEdit_plaintext->setText(OSDs.at(0).PlainText);
 
 }
 
-
-void MainWindow::on_pushButton_AddOSD_clicked()
-{
+struOSD MainWindow::getUIOsd(){
     struOSD osd = {0};
     int index = ui->comboBox_Position->currentIndex();
     if(index == 0){
         osd.PositionType = "Custom";
-
+        osd.x = ui->comboBox_x->currentText().toFloat();
+        osd.y = ui->comboBox_y->currentText().toFloat();
     }
     else{
         switch(index){
@@ -444,13 +446,34 @@ void MainWindow::on_pushButton_AddOSD_clicked()
             break;
         }
     }
-    onvifdevice->CreateOSD(osd);
+
+
+    osd.PlainText= ui->lineEdit_plaintext->text();
+    osd.FontSize = ui->comboBox_fontsize->currentText().toFloat();
+
+    return osd;
+
+}
+/*
+PositionType:
+    UpperLeft 左上
+    UpperRight 右上
+    LowerLeft 左下
+    LowerRight 右下
+    Custom 自定义
+*/
+void MainWindow::on_pushButton_AddOSD_clicked()
+{
+    struOSD osd = getUIOsd();
+    //创建OSD成功后,会返回设备上标识的OSD token
+    osd.token = onvifdevice->CreateOSD(osd);
 }
 
 
 void MainWindow::on_pushButton_ModifyOSD_clicked()
 {
-    struOSD osd;
+    struOSD osd = getUIOsd();
+    osd.token = ui->lineEdit_token->text();
     onvifdevice->SetOSD(osd);
 }
 
@@ -469,11 +492,15 @@ void MainWindow::on_pushButton_DelOSD_clicked()
 void MainWindow::on_comboBox_Position_currentIndexChanged(int index)
 {
     if(index !=0){
-        ui->lineEdit_postion->clear();
-        ui->lineEdit_postion->setEnabled(false);
+
+
+        ui->comboBox_x->setEnabled(false);
+           ui->comboBox_y->setEnabled(false);
     }
     else{
-        ui->lineEdit_postion->setEnabled(true);
+
+        ui->comboBox_x->setEnabled(true);
+           ui->comboBox_y->setEnabled(true);
     }
 }
 

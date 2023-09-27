@@ -97,8 +97,8 @@ public:
 
     // OSD
     bool  GetOSDs( QVector<struOSD>& osds);
-    bool CreateOSD(const struOSD &osdparm);       //add
-    bool SetOSD(const struOSD &osdparm);          //modify
+    QString CreateOSD(const struOSD &osdparm);       // 创建OSD，成功后会返回设备上标识的OSD token
+    bool SetOSD(const struOSD &osdparm);          //设置OSD。与CreateOSD基本一样，但该命令使用的是相机已经存在的OSDtoken
     bool DelOSD(QString OSDToken);
 
 

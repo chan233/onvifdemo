@@ -18,7 +18,7 @@
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>2</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -1280,12 +1280,81 @@
                   </widget>
                  </item>
                  <item>
-                  <widget class="QLineEdit" name="lineEdit_postion"/>
+                  <widget class="QLabel" name="label_px">
+                   <property name="text">
+                    <string>x:</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QComboBox" name="comboBox_x">
+                   <item>
+                    <property name="text">
+                     <string>1</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>0.5</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>0</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>-0.5</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>-1</string>
+                    </property>
+                   </item>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="label_py">
+                   <property name="text">
+                    <string>y:</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QComboBox" name="comboBox_y">
+                   <item>
+                    <property name="text">
+                     <string>1</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>0.5</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>0</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>-0.5</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>-1</string>
+                    </property>
+                   </item>
+                  </widget>
                  </item>
                 </layout>
                </item>
                <item>
-                <layout class="QHBoxLayout" name="horizontalLayout_45">
+                <layout class="QHBoxLayout" name="horizontalLayout_45" stretch="1,9">
                  <item>
                   <widget class="QLabel" name="label_22">
                    <property name="text">
@@ -1294,7 +1363,28 @@
                   </widget>
                  </item>
                  <item>
-                  <widget class="QLineEdit" name="lineEdit_font_size"/>
+                  <widget class="QComboBox" name="comboBox_fontsize">
+                   <item>
+                    <property name="text">
+                     <string>10</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>20</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>30</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>40</string>
+                    </property>
+                   </item>
+                  </widget>
                  </item>
                 </layout>
                </item>
@@ -1333,7 +1423,11 @@
                   </widget>
                  </item>
                  <item>
-                  <widget class="QLineEdit" name="lineEdit_text"/>
+                  <widget class="QLineEdit" name="lineEdit_plaintext">
+                   <property name="text">
+                    <string>OSD...</string>
+                   </property>
+                  </widget>
                  </item>
                 </layout>
                </item>

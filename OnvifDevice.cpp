@@ -97,6 +97,7 @@ struct OnvifDevicePrivate {
     int GetVideoSourceToken(QString *token);
     QString GetToken(int flag);
     QString GetOSDToken();
+
 };
 
 OnvifDevice::OnvifDevice(const QUrl &rDeviceEndpoint, QObject *pParent /*= nullptr*/) :
@@ -695,14 +696,18 @@ bool OnvifDevice::GetOSDs(QVector<struOSD>& OSDs){
 
     return true;
 }
-bool OnvifDevice::CreateOSD(const struOSD &osdparm){
+
+QString OnvifDevice::CreateOSD(const struOSD &osdparm){
     Request<_trt__CreateOSD> request;
     request.OSD->Type = tt__OSDType::Text;
     int *size = new int;
     *size = osdparm.FontSize;
     request.OSD->TextString->FontSize =size;
     request.OSD->Position->Type = osdparm.PositionType;
-    if(request.OSD->Position->Type != "Custom"){
+
+
+
+    if(request.OSD->Position->Type == "Custom"){
         float *x = new float;
         float *y = new float;
         *x = osdparm.x;
@@ -711,8 +716,13 @@ bool OnvifDevice::CreateOSD(const struOSD &osdparm){
         request.OSD->Position->Pos->y = y;
     }
 
+
     auto response =   mpD->mpOnvifMediaClient->CreateOSD(request);
-    return mpD->isError(response.GetErrorCode());
+    if(!mpD->isError(response.GetErrorCode())){
+           return response.GetResultObject()->OSDToken;
+    }
+
+    return "";
 
 }
 void tranformPos(float x, float y)
@@ -733,10 +743,33 @@ void tranformPos(float x, float y)
 }
 bool OnvifDevice::SetOSD(const struOSD &osdparm){
 
+
+
+
     Request<_trt__SetOSD> request;
-    request.OSD->VideoSourceConfigurationToken;
-    request.OSD->Position;
+
+    //request.OSD->VideoSourceConfigurationToken = osdparm.token;
+
+    request.OSD->Type = tt__OSDType::Text;
+    int *size = new int;
+    *size = osdparm.FontSize;
+    request.OSD->TextString->FontSize =size;
+    request.OSD->Position->Type = osdparm.PositionType;
+
+
+
+    if(request.OSD->Position->Type == "Custom"){
+        float *x = new float;
+        float *y = new float;
+        *x = osdparm.x;
+        *y = osdparm.y;
+        request.OSD->Position->Pos->x = x;
+        request.OSD->Position->Pos->y = y;
+    }
+
+
     auto response =   mpD->mpOnvifMediaClient->SetOSD(request);
+
     return mpD->isError(response.GetErrorCode());
 
 
