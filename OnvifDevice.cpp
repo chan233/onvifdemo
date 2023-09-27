@@ -853,6 +853,7 @@ bool OnvifDevice::SetNTP(){
 bool OnvifDevice::GetNTP(){
     Request<_tds__GetNTP> request;
     auto response = mpD->mpOnvifDeviceClient->GetNTP(request);
+
     return mpD->isError(response.GetErrorCode());
 }
 
@@ -885,6 +886,14 @@ bool OnvifDevice::SetSystemDateAndTime(const QDateTime& dateTime){
 
     return mpD->isError(response.GetErrorCode());
 }
+
+ bool OnvifDevice::SystemReboot(){
+    Request<_tds__SystemReboot> request;
+  
+    auto response = mpD->mpOnvifDeviceClient->SystemReboot(request);
+    return mpD->isError(response.GetErrorCode());
+
+ }
 bool OnvifDevice::GotoHomePosition(){
     Request<_tptz__GotoHomePosition> rRequest;
     auto response = mpD->mpOnvifPtzClient->GotoHomePosition(rRequest);

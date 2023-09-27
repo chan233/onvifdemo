@@ -123,6 +123,8 @@ private slots:
 
     void on_comboBox_Position_currentIndexChanged(int index);
 
+    void on_pushButton_SystemReboot_clicked();
+
 private:
     void hideButton();
     struOSD getUIOsd();

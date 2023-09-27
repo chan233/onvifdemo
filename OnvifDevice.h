@@ -87,7 +87,7 @@ public:
     bool SetNTP();
     bool GetSystemDateAndTime(QDateTime &dateTime);
     bool SetSystemDateAndTime(const QDateTime& dateTime);
-
+    bool SystemReboot();
     //    bool SetIPAddressFilter();
     //    bool SetNetworkDefaultGateway();
     //    bool SetDNS();

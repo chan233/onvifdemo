@@ -504,3 +504,9 @@ void MainWindow::on_comboBox_Position_currentIndexChanged(int index)
     }
 }
 
+
+void MainWindow::on_pushButton_SystemReboot_clicked()
+{
+    onvifdevice->SystemReboot();
+}
+
