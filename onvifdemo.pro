@@ -41,9 +41,11 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 CONFIG(debug, debug|release){
 INCLUDEPATH+=$$PWD/src/include/
-# LIBS +=-L$$PWD/src/lib -lonvifXd -lonvifdeviced
-#INCLUDEPATH+=/home/chan/Desktop/git/libONVIF/build/install/include
-LIBS +=-L/home/chan/Desktop/git/libONVIF/build/install/lib -lonvifXd
+#LIBS +=-L$$PWD/src/lib -lonvifXd -lonvifdeviced
+
+#LIBS +=-L/home/chan/Desktop/git/libONVIF/build/install/debug/lib -lonvifXd -lonvifdeviced
+#INCLUDEPATH+=/home/chan/Desktop/git/libONVIF/build/install/debug/include
+LIBS +=-L/home/chan/Desktop/git/libONVIF/build/install/debug/lib -lonvifXd
 }
 CONFIG(release, debug|release){
 
