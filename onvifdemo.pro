@@ -45,7 +45,7 @@ INCLUDEPATH+=$$PWD/src/include/
 
 #LIBS +=-L/home/chan/Desktop/git/libONVIF/build/install/debug/lib -lonvifXd -lonvifdeviced
 #INCLUDEPATH+=/home/chan/Desktop/git/libONVIF/build/install/debug/include
-LIBS +=-L/home/chan/Desktop/git/libONVIF/build/install/debug/lib -lonvifXd
+LIBS +=-L/home/chan/Desktop/libONVIF/build/install/debug/lib -lonvifXd
 }
 CONFIG(release, debug|release){
 
