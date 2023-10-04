@@ -9,20 +9,20 @@
 #  ifndef ONVIFRECEIVER_EXPORT
 #    ifdef onvifreceiver_EXPORTS
         /* We are building this library */
-#      define ONVIFRECEIVER_EXPORT __attribute__((visibility("default")))
+#      define ONVIFRECEIVER_EXPORT __declspec(dllexport)
 #    else
         /* We are using this library */
-#      define ONVIFRECEIVER_EXPORT __attribute__((visibility("default")))
+#      define ONVIFRECEIVER_EXPORT __declspec(dllimport)
 #    endif
 #  endif
 
 #  ifndef ONVIFRECEIVER_NO_EXPORT
-#    define ONVIFRECEIVER_NO_EXPORT __attribute__((visibility("hidden")))
+#    define ONVIFRECEIVER_NO_EXPORT 
 #  endif
 #endif
 
 #ifndef ONVIFRECEIVER_DEPRECATED
-#  define ONVIFRECEIVER_DEPRECATED __attribute__ ((__deprecated__))
+#  define ONVIFRECEIVER_DEPRECATED __declspec(deprecated)
 #endif
 
 #ifndef ONVIFRECEIVER_DEPRECATED_EXPORT

@@ -7,9 +7,8 @@
 #include <QHostAddress>
 #include <QNetworkInterface>
 
-// #include "onvifheads.h"
 #include "OnvifDevice.h"
-#include "viedoframe.h"
+//#include "viedoframe.h"
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -138,7 +137,7 @@ private:
     bool continuous  = false;
     bool relative  = false;
     OnvifDevice *onvifdevice;
-    ViedoFrame *videoframe;
+    //ViedoFrame *videoframe;
     bool init = false;
 };
 #endif // MAINWINDOW_H

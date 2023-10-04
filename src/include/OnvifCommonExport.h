@@ -9,20 +9,20 @@
 #  ifndef ONVIFCOMMON_EXPORT
 #    ifdef onvifcommon_EXPORTS
         /* We are building this library */
-#      define ONVIFCOMMON_EXPORT __attribute__((visibility("default")))
+#      define ONVIFCOMMON_EXPORT __declspec(dllexport)
 #    else
         /* We are using this library */
-#      define ONVIFCOMMON_EXPORT __attribute__((visibility("default")))
+#      define ONVIFCOMMON_EXPORT __declspec(dllimport)
 #    endif
 #  endif
 
 #  ifndef ONVIFCOMMON_NO_EXPORT
-#    define ONVIFCOMMON_NO_EXPORT __attribute__((visibility("hidden")))
+#    define ONVIFCOMMON_NO_EXPORT 
 #  endif
 #endif
 
 #ifndef ONVIFCOMMON_DEPRECATED
-#  define ONVIFCOMMON_DEPRECATED __attribute__ ((__deprecated__))
+#  define ONVIFCOMMON_DEPRECATED __declspec(deprecated)
 #endif
 
 #ifndef ONVIFCOMMON_DEPRECATED_EXPORT

@@ -9,20 +9,20 @@
 #  ifndef ONVIFMEDIA2_EXPORT
 #    ifdef onvifmedia2_EXPORTS
         /* We are building this library */
-#      define ONVIFMEDIA2_EXPORT __attribute__((visibility("default")))
+#      define ONVIFMEDIA2_EXPORT __declspec(dllexport)
 #    else
         /* We are using this library */
-#      define ONVIFMEDIA2_EXPORT __attribute__((visibility("default")))
+#      define ONVIFMEDIA2_EXPORT __declspec(dllimport)
 #    endif
 #  endif
 
 #  ifndef ONVIFMEDIA2_NO_EXPORT
-#    define ONVIFMEDIA2_NO_EXPORT __attribute__((visibility("hidden")))
+#    define ONVIFMEDIA2_NO_EXPORT 
 #  endif
 #endif
 
 #ifndef ONVIFMEDIA2_DEPRECATED
-#  define ONVIFMEDIA2_DEPRECATED __attribute__ ((__deprecated__))
+#  define ONVIFMEDIA2_DEPRECATED __declspec(deprecated)
 #endif
 
 #ifndef ONVIFMEDIA2_DEPRECATED_EXPORT

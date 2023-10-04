@@ -9,20 +9,20 @@
 #  ifndef ONVIFDEVICE_EXPORT
 #    ifdef onvifdevice_EXPORTS
         /* We are building this library */
-#      define ONVIFDEVICE_EXPORT __attribute__((visibility("default")))
+#      define ONVIFDEVICE_EXPORT __declspec(dllexport)
 #    else
         /* We are using this library */
-#      define ONVIFDEVICE_EXPORT __attribute__((visibility("default")))
+#      define ONVIFDEVICE_EXPORT __declspec(dllimport)
 #    endif
 #  endif
 
 #  ifndef ONVIFDEVICE_NO_EXPORT
-#    define ONVIFDEVICE_NO_EXPORT __attribute__((visibility("hidden")))
+#    define ONVIFDEVICE_NO_EXPORT 
 #  endif
 #endif
 
 #ifndef ONVIFDEVICE_DEPRECATED
-#  define ONVIFDEVICE_DEPRECATED __attribute__ ((__deprecated__))
+#  define ONVIFDEVICE_DEPRECATED __declspec(deprecated)
 #endif
 
 #ifndef ONVIFDEVICE_DEPRECATED_EXPORT

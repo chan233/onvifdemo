@@ -9,20 +9,20 @@
 #  ifndef ONVIFDISCOVERY_EXPORT
 #    ifdef onvifdiscovery_EXPORTS
         /* We are building this library */
-#      define ONVIFDISCOVERY_EXPORT __attribute__((visibility("default")))
+#      define ONVIFDISCOVERY_EXPORT __declspec(dllexport)
 #    else
         /* We are using this library */
-#      define ONVIFDISCOVERY_EXPORT __attribute__((visibility("default")))
+#      define ONVIFDISCOVERY_EXPORT __declspec(dllimport)
 #    endif
 #  endif
 
 #  ifndef ONVIFDISCOVERY_NO_EXPORT
-#    define ONVIFDISCOVERY_NO_EXPORT __attribute__((visibility("hidden")))
+#    define ONVIFDISCOVERY_NO_EXPORT 
 #  endif
 #endif
 
 #ifndef ONVIFDISCOVERY_DEPRECATED
-#  define ONVIFDISCOVERY_DEPRECATED __attribute__ ((__deprecated__))
+#  define ONVIFDISCOVERY_DEPRECATED __declspec(deprecated)
 #endif
 
 #ifndef ONVIFDISCOVERY_DEPRECATED_EXPORT

@@ -9,20 +9,20 @@
 #  ifndef ONVIFPTZ_EXPORT
 #    ifdef onvifptz_EXPORTS
         /* We are building this library */
-#      define ONVIFPTZ_EXPORT __attribute__((visibility("default")))
+#      define ONVIFPTZ_EXPORT __declspec(dllexport)
 #    else
         /* We are using this library */
-#      define ONVIFPTZ_EXPORT __attribute__((visibility("default")))
+#      define ONVIFPTZ_EXPORT __declspec(dllimport)
 #    endif
 #  endif
 
 #  ifndef ONVIFPTZ_NO_EXPORT
-#    define ONVIFPTZ_NO_EXPORT __attribute__((visibility("hidden")))
+#    define ONVIFPTZ_NO_EXPORT 
 #  endif
 #endif
 
 #ifndef ONVIFPTZ_DEPRECATED
-#  define ONVIFPTZ_DEPRECATED __attribute__ ((__deprecated__))
+#  define ONVIFPTZ_DEPRECATED __declspec(deprecated)
 #endif
 
 #ifndef ONVIFPTZ_DEPRECATED_EXPORT

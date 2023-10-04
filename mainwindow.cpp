@@ -11,12 +11,12 @@ MainWindow::MainWindow(QWidget *parent)
 
     hideButton();
     getIPv4();
-    videoframe = new ViedoFrame;
-    ui->verticalLayout_17->addWidget(videoframe);
-    ui->verticalLayout_17->setStretch(0,0);
-    ui->verticalLayout_17->setStretch(1,0);
-    ui->verticalLayout_17->setStretch(2,0);
-    ui->verticalLayout_17->setStretch(3,8);
+//videoframe = new ViedoFrame;
+//    ui->verticalLayout_17->addWidget(videoframe);
+//    ui->verticalLayout_17->setStretch(0,0);
+//    ui->verticalLayout_17->setStretch(1,0);
+//    ui->verticalLayout_17->setStretch(2,0);
+//    ui->verticalLayout_17->setStretch(3,8);
 
 }
 

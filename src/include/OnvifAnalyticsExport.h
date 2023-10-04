@@ -9,20 +9,20 @@
 #  ifndef ONVIFANALYTICS_EXPORT
 #    ifdef onvifanalytics_EXPORTS
         /* We are building this library */
-#      define ONVIFANALYTICS_EXPORT __attribute__((visibility("default")))
+#      define ONVIFANALYTICS_EXPORT __declspec(dllexport)
 #    else
         /* We are using this library */
-#      define ONVIFANALYTICS_EXPORT __attribute__((visibility("default")))
+#      define ONVIFANALYTICS_EXPORT __declspec(dllimport)
 #    endif
 #  endif
 
 #  ifndef ONVIFANALYTICS_NO_EXPORT
-#    define ONVIFANALYTICS_NO_EXPORT __attribute__((visibility("hidden")))
+#    define ONVIFANALYTICS_NO_EXPORT 
 #  endif
 #endif
 
 #ifndef ONVIFANALYTICS_DEPRECATED
-#  define ONVIFANALYTICS_DEPRECATED __attribute__ ((__deprecated__))
+#  define ONVIFANALYTICS_DEPRECATED __declspec(deprecated)
 #endif
 
 #ifndef ONVIFANALYTICS_DEPRECATED_EXPORT

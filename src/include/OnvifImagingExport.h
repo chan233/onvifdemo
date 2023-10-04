@@ -9,20 +9,20 @@
 #  ifndef ONVIFIMAGING_EXPORT
 #    ifdef onvifimaging_EXPORTS
         /* We are building this library */
-#      define ONVIFIMAGING_EXPORT __attribute__((visibility("default")))
+#      define ONVIFIMAGING_EXPORT __declspec(dllexport)
 #    else
         /* We are using this library */
-#      define ONVIFIMAGING_EXPORT __attribute__((visibility("default")))
+#      define ONVIFIMAGING_EXPORT __declspec(dllimport)
 #    endif
 #  endif
 
 #  ifndef ONVIFIMAGING_NO_EXPORT
-#    define ONVIFIMAGING_NO_EXPORT __attribute__((visibility("hidden")))
+#    define ONVIFIMAGING_NO_EXPORT 
 #  endif
 #endif
 
 #ifndef ONVIFIMAGING_DEPRECATED
-#  define ONVIFIMAGING_DEPRECATED __attribute__ ((__deprecated__))
+#  define ONVIFIMAGING_DEPRECATED __declspec(deprecated)
 #endif
 
 #ifndef ONVIFIMAGING_DEPRECATED_EXPORT

@@ -9,20 +9,20 @@
 #  ifndef ONVIFEVENT_EXPORT
 #    ifdef onvifevent_EXPORTS
         /* We are building this library */
-#      define ONVIFEVENT_EXPORT __attribute__((visibility("default")))
+#      define ONVIFEVENT_EXPORT __declspec(dllexport)
 #    else
         /* We are using this library */
-#      define ONVIFEVENT_EXPORT __attribute__((visibility("default")))
+#      define ONVIFEVENT_EXPORT __declspec(dllimport)
 #    endif
 #  endif
 
 #  ifndef ONVIFEVENT_NO_EXPORT
-#    define ONVIFEVENT_NO_EXPORT __attribute__((visibility("hidden")))
+#    define ONVIFEVENT_NO_EXPORT 
 #  endif
 #endif
 
 #ifndef ONVIFEVENT_DEPRECATED
-#  define ONVIFEVENT_DEPRECATED __attribute__ ((__deprecated__))
+#  define ONVIFEVENT_DEPRECATED __declspec(deprecated)
 #endif
 
 #ifndef ONVIFEVENT_DEPRECATED_EXPORT
