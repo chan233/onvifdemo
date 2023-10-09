@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1274</width>
-    <height>866</height>
+    <height>1036</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,7 +18,7 @@
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -90,7 +90,17 @@
              <widget class="QComboBox" name="comboBox_2">
               <item>
                <property name="text">
+                <string>http://192.168.1.84/onvif/device_service</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
                 <string>http://192.168.1.94/onvif/device_service</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>http://192.168.1.85:8080/onvif/device_service</string>
                </property>
               </item>
              </widget>
@@ -621,7 +631,7 @@
                  <item>
                   <widget class="QLineEdit" name="lineEdit_brightness">
                    <property name="text">
-                    <string>125</string>
+                    <string>50</string>
                    </property>
                    <property name="readOnly">
                     <bool>true</bool>
@@ -630,11 +640,14 @@
                  </item>
                  <item>
                   <widget class="QSlider" name="horizontalSlider_brightness">
+                   <property name="minimum">
+                    <number>1</number>
+                   </property>
                    <property name="maximum">
-                    <number>255</number>
+                    <number>100</number>
                    </property>
                    <property name="value">
-                    <number>125</number>
+                    <number>50</number>
                    </property>
                    <property name="orientation">
                     <enum>Qt::Horizontal</enum>
@@ -655,7 +668,7 @@
                  <item>
                   <widget class="QLineEdit" name="lineEdit_ColorSaturation">
                    <property name="text">
-                    <string>125</string>
+                    <string>50</string>
                    </property>
                    <property name="readOnly">
                     <bool>true</bool>
@@ -664,11 +677,14 @@
                  </item>
                  <item>
                   <widget class="QSlider" name="horizontalSlider_ColorSaturation">
+                   <property name="minimum">
+                    <number>1</number>
+                   </property>
                    <property name="maximum">
-                    <number>255</number>
+                    <number>100</number>
                    </property>
                    <property name="value">
-                    <number>125</number>
+                    <number>50</number>
                    </property>
                    <property name="orientation">
                     <enum>Qt::Horizontal</enum>
@@ -689,7 +705,7 @@
                  <item>
                   <widget class="QLineEdit" name="lineEdit_Contrast">
                    <property name="text">
-                    <string>125</string>
+                    <string>50</string>
                    </property>
                    <property name="readOnly">
                     <bool>true</bool>
@@ -698,11 +714,14 @@
                  </item>
                  <item>
                   <widget class="QSlider" name="horizontalSlider_Contrast">
+                   <property name="minimum">
+                    <number>1</number>
+                   </property>
                    <property name="maximum">
-                    <number>255</number>
+                    <number>100</number>
                    </property>
                    <property name="value">
-                    <number>125</number>
+                    <number>50</number>
                    </property>
                    <property name="orientation">
                     <enum>Qt::Horizontal</enum>
@@ -723,7 +742,7 @@
                  <item>
                   <widget class="QLineEdit" name="lineEdit_Sharpness">
                    <property name="text">
-                    <string>125</string>
+                    <string>50</string>
                    </property>
                    <property name="readOnly">
                     <bool>true</bool>
@@ -732,11 +751,14 @@
                  </item>
                  <item>
                   <widget class="QSlider" name="horizontalSlider_Sharpness">
+                   <property name="minimum">
+                    <number>1</number>
+                   </property>
                    <property name="maximum">
-                    <number>255</number>
+                    <number>100</number>
                    </property>
                    <property name="value">
-                    <number>125</number>
+                    <number>50</number>
                    </property>
                    <property name="orientation">
                     <enum>Qt::Horizontal</enum>
@@ -1163,9 +1185,23 @@
                   </widget>
                  </item>
                  <item>
+                  <widget class="QPushButton" name="pushButton_fin">
+                   <property name="text">
+                    <string>f+</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
                   <widget class="QPushButton" name="pushButton_Stop">
                    <property name="text">
                     <string>停止</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="pushButton_fout">
+                   <property name="text">
+                    <string>f-</string>
                    </property>
                   </widget>
                  </item>
@@ -1203,7 +1239,7 @@
              <item>
               <layout class="QVBoxLayout" name="verticalLayout_18">
                <item>
-                <layout class="QHBoxLayout" name="horizontalLayout_42">
+                <layout class="QHBoxLayout" name="horizontalLayout_42" stretch="1,9">
                  <item>
                   <widget class="QLabel" name="label_19">
                    <property name="text">
@@ -1212,12 +1248,16 @@
                   </widget>
                  </item>
                  <item>
-                  <widget class="QLineEdit" name="lineEdit_token"/>
+                  <widget class="QComboBox" name="comboBox_osdtoken">
+                   <property name="editable">
+                    <bool>true</bool>
+                   </property>
+                  </widget>
                  </item>
                 </layout>
                </item>
                <item>
-                <layout class="QHBoxLayout" name="horizontalLayout_43">
+                <layout class="QHBoxLayout" name="horizontalLayout_43" stretch="1,9">
                  <item>
                   <widget class="QLabel" name="label_config">
                    <property name="text">
@@ -1295,6 +1335,26 @@
                    </item>
                    <item>
                     <property name="text">
+                     <string>0.25</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>0.01</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>0.02</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>0.05</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
                      <string>0.5</string>
                     </property>
                    </item>
@@ -1331,7 +1391,72 @@
                    </item>
                    <item>
                     <property name="text">
+                     <string>0.1</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>0.2</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>0.3</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>0.4</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
                      <string>0.5</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>0.6</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>0.7</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>0.8</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>0.9</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>0.01</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>0.02</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>0.05</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>0.078</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>0.07</string>
                     </property>
                    </item>
                    <item>
@@ -1366,22 +1491,22 @@
                   <widget class="QComboBox" name="comboBox_fontsize">
                    <item>
                     <property name="text">
-                     <string>10</string>
-                    </property>
-                   </item>
-                   <item>
-                    <property name="text">
-                     <string>20</string>
-                    </property>
-                   </item>
-                   <item>
-                    <property name="text">
                      <string>30</string>
                     </property>
                    </item>
                    <item>
                     <property name="text">
                      <string>40</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>50</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>60</string>
                     </property>
                    </item>
                   </widget>
@@ -1401,12 +1526,12 @@
                   <widget class="QComboBox" name="comboBox_OSDType">
                    <item>
                     <property name="text">
-                     <string>日期时间</string>
+                     <string>文本文字</string>
                     </property>
                    </item>
                    <item>
                     <property name="text">
-                     <string>文本文字</string>
+                     <string>日期时间</string>
                     </property>
                    </item>
                   </widget>
@@ -1414,7 +1539,7 @@
                 </layout>
                </item>
                <item>
-                <layout class="QHBoxLayout" name="horizontalLayout_46">
+                <layout class="QHBoxLayout" name="horizontalLayout_46" stretch="1,9">
                  <item>
                   <widget class="QLabel" name="label_24">
                    <property name="text">
@@ -1425,7 +1550,7 @@
                  <item>
                   <widget class="QLineEdit" name="lineEdit_plaintext">
                    <property name="text">
-                    <string>OSD...</string>
+                    <string>OSD</string>
                    </property>
                   </widget>
                  </item>
@@ -1468,6 +1593,13 @@
                 </layout>
                </item>
               </layout>
+             </item>
+             <item>
+              <widget class="QPushButton" name="pushButton_testimage">
+               <property name="text">
+                <string>testimage</string>
+               </property>
+              </widget>
              </item>
             </layout>
            </widget>
@@ -1517,7 +1649,7 @@
      <x>0</x>
      <y>0</y>
      <width>1274</width>
-     <height>23</height>
+     <height>36</height>
     </rect>
    </property>
   </widget>

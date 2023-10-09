@@ -9,14 +9,14 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    #OnvifDevice.cpp \
+    OnvifDevice.cpp \
     main.cpp \
     mainwindow.cpp \
     #player.cpp \
     #viedoframe.cpp
 
 HEADERS += \
-    #OnvifDevice.h \
+    OnvifDevice.h \
     mainwindow.h \
     #player.h \
     #viedoframe.h
@@ -46,16 +46,16 @@ win32{
     INCLUDEPATH += C:/Users/HUAWEI/Desktop/env/libONVIF/build/install/include/
     #INCLUDEPATH += /opt/ffmpeg/include
     CONFIG(release, debug|release){
-            LIBS += -L$$PWD/src/winlib/Release/ -lonvifanalytics -lonvifcommon -lonvifdevice -lonvifdiscovery\
-            -lonvifdisplay -lonvifevent -lonvifimaging -lonvifmedia2 -lonvifmedia -lonvifptz -lonvifManager\
-            -lonvifreceiver -lonvifrecording -lonvifreplay
+            LIBS += -L$$PWD/src/winlib/Release/ -lonvifanalytics -lonvifcommon  -lonvifdiscovery\
+            -lonvifdisplay -lonvifevent -lonvifimaging -lonvifmedia2 -lonvifmedia -lonvifptz \
+            -lonvifreceiver -lonvifrecording -lonvifreplay -lonvifdevice #-lonvifManager
     }
     CONFIG(debug, debug|release){
 
 
-        LIBS += -LC:/Users/HUAWEI/Desktop/env/libONVIF/build/install/lib/ -lonvifanalyticsd -lonvifcommond -lonvifdeviced -lonvifdiscoveryd\
--lonvifdisplayd -lonvifeventd -lonvifimagingd -lonvifmedia2d -lonvifmediad -lonvifptzd -lonvifManagerd\
--lonvifreceiverd -lonvifrecordingd -lonvifreplayd
+        LIBS += -LC:/Users/HUAWEI/Desktop/env/libONVIF/build/install/lib/ -lonvifanalyticsd -lonvifcommond  -lonvifdiscoveryd\
+-lonvifdisplayd -lonvifeventd -lonvifimagingd -lonvifmedia2d -lonvifmediad -lonvifptzd \
+-lonvifreceiverd -lonvifrecordingd -lonvifreplayd -lonvifdeviced #-lonvifManagerd
 
 #        LIBS += -L$$PWD/src/winlib/Debug/ -lonvifanalyticsd -lonvifcommond -lonvifdeviced -lonvifdiscoveryd\
 #        -lonvifdisplayd -lonvifeventd -lonvifimagingd -lonvifmedia2d -lonvifmediad -lonvifptzd -lonvifManagerd\
@@ -72,5 +72,12 @@ win32{
 #                -lswscale
     }
 }
+else{
+INCLUDEPATH += /home/glhr/Desktop/env/libONVIF/build/install/debug/include
+        LIBS += -L/home/glhr/Desktop/env/libONVIF/build/install/debug/lib -lonvifanalyticsd -lonvifcommond  -lonvifdiscoveryd\
+-lonvifdisplayd -lonvifeventd -lonvifimagingd -lonvifmedia2d -lonvifmediad -lonvifptzd \
+-lonvifreceiverd -lonvifrecordingd -lonvifreplayd -lonvifdeviced #-lonvifManagerd
+QMAKE_LFLAGS += -Wl,-rpath=./
 
+}
 

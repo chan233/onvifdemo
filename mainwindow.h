@@ -118,15 +118,20 @@ private slots:
 
     void on_pushButton_SetTime_clicked();
 
-
-
     void on_comboBox_Position_currentIndexChanged(int index);
 
     void on_pushButton_SystemReboot_clicked();
 
+
+
+
+    void on_pushButton_fin_clicked();
+
+    void on_pushButton_fout_clicked();
+
 private:
     void hideButton();
-    struOSD getUIOsd();
+    struOSD getOSDParam();
     QMap <QString , QHostAddress>getIPv4();
     QMap <QString , QHostAddress>m_mapAddresses;
     Ui::MainWindow *ui;

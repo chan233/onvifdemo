@@ -11,12 +11,12 @@ MainWindow::MainWindow(QWidget *parent)
 
     hideButton();
     getIPv4();
-//videoframe = new ViedoFrame;
-//    ui->verticalLayout_17->addWidget(videoframe);
-//    ui->verticalLayout_17->setStretch(0,0);
-//    ui->verticalLayout_17->setStretch(1,0);
-//    ui->verticalLayout_17->setStretch(2,0);
-//    ui->verticalLayout_17->setStretch(3,8);
+    //videoframe = new ViedoFrame;
+    //    ui->verticalLayout_17->addWidget(videoframe);
+    //    ui->verticalLayout_17->setStretch(0,0);
+    //    ui->verticalLayout_17->setStretch(1,0);
+    //    ui->verticalLayout_17->setStretch(2,0);
+    //    ui->verticalLayout_17->setStretch(3,8);
 
 }
 
@@ -132,10 +132,6 @@ void MainWindow::on_pushButton_StopGeoMove_clicked()
 }
 
 
-void MainWindow::on_pushButton_leftup_clicked()
-{
-    onvifdevice->ContinuousMove(-1,-1);
-}
 
 
 void MainWindow::on_pushButton_up_clicked()
@@ -157,69 +153,86 @@ void MainWindow::on_pushButton_up_clicked()
 
     //        onvifdevice->RelativeMove(x,y,speed);
     //    }
-    onvifdevice->ContinuousMove(0,-1);
+
+    onvifdevice->ContinuousMove(0,1,2);
+}
+
+void MainWindow::on_pushButton_down_clicked()
+{
+
+    onvifdevice->ContinuousMove(0,-1,2);
+}
+void MainWindow::on_pushButton_leftup_clicked()
+{
+    onvifdevice->ContinuousMove(1,1,2);
 
 }
 
-
 void MainWindow::on_pushButton_rightup_clicked()
 {
-    onvifdevice->ContinuousMove(1,-1);
+    onvifdevice->ContinuousMove(-1,1,2);
 }
 
 
 void MainWindow::on_pushButton_left_clicked()
 {
-    onvifdevice->ContinuousMove(-1,1);
+    onvifdevice->ContinuousMove(1,0,2);
 }
-
-
-void MainWindow::on_pushButton_reset_clicked()
-{
-    onvifdevice->ContinuousMove(0,0);
-
-}
-
 
 void MainWindow::on_pushButton_right_clicked()
 {
-    onvifdevice->ContinuousMove(1,1);
+
+    onvifdevice->ContinuousMove(-1,0,2);
 }
+
+void MainWindow::on_pushButton_reset_clicked()
+{
+    onvifdevice->ContinuousMove(0,0,2);
+
+}
+
+
 
 
 void MainWindow::on_pushButton_leftdown_clicked()
 {
-    onvifdevice->ContinuousMove(-1,1);
+    onvifdevice->ContinuousMove(1,-1,2);
 }
 
 
-void MainWindow::on_pushButton_down_clicked()
-{
-    onvifdevice->ContinuousMove(0,1);
-}
 
 
 void MainWindow::on_pushButton_rightdown_clicked()
 {
-    onvifdevice->ContinuousMove(1,1);
+
+    onvifdevice->ContinuousMove(-1,-1,2);
 }
 
 
 void MainWindow::on_pushButton_zoomout_clicked()
 {
-    //onvifdevice->ZoomOut();
+    onvifdevice->ZoomOut();
 
-    onvifdevice->FocusMove(1);
+
 }
 
 
 void MainWindow::on_pushButton_zoomin_clicked()
 {
-    //onvifdevice->ZoomIn();
-    onvifdevice->FocusMove(-1);
+    onvifdevice->ZoomIn();
+
 }
 
 
+void MainWindow::on_pushButton_fin_clicked()
+{
+      onvifdevice->FocusMove(1);
+}
+
+void MainWindow::on_pushButton_fout_clicked()
+{
+    onvifdevice->FocusMove(-1);
+}
 void MainWindow::on_pushButton_Stop_clicked()
 {
     onvifdevice->StopZoom();
@@ -355,24 +368,34 @@ void MainWindow::on_pushButton_GetImagingSettings_clicked()
 void MainWindow::on_horizontalSlider_brightness_sliderMoved(int position)
 {
     ui->lineEdit_brightness->setText(QString::number(position));
+    onvifdevice->SetBrightness(position);
+
 }
 
 
 void MainWindow::on_horizontalSlider_ColorSaturation_sliderMoved(int position)
 {
     ui->lineEdit_ColorSaturation->setText(QString::number(position));
+
+    onvifdevice->SetColorSaturation(position);
+
 }
 
 
 void MainWindow::on_horizontalSlider_Contrast_sliderMoved(int position)
 {
     ui->lineEdit_Contrast->setText(QString::number(position));
+
+    onvifdevice->SetContrast(position);
+
 }
 
 
 void MainWindow::on_horizontalSlider_Sharpness_sliderMoved(int position)
 {
     ui->lineEdit_Sharpness->setText(QString::number(position));
+
+    onvifdevice->SetSharpness(position);
 }
 
 
@@ -398,60 +421,33 @@ void MainWindow::on_pushButton_init_clicked()
     QString passwd = ui->lineEdit_password->text();
     if(!init){
         onvifdevice = new OnvifDevice(mPtzurl);
+        qDebug()<<"current url :"<<mPtzurl;
         onvifdevice->SetAuth(name,passwd);
         onvifdevice->Initialize();
         init= true;
+        on_pushButton_GetImagingSettings_clicked();
     }
 
 
 }
-
 
 void MainWindow::on_pushButton_GetOSD_clicked()
 {
     QVector<struOSD> OSDs;
-    if(!onvifdevice->GetOSDs(OSDs)){
+    if(onvifdevice->GetOSDs(OSDs) == -1){
         return;
     }
 
-
-    ui->lineEdit_token->setText(OSDs.at(0).token);
-    ui->lineEdit_plaintext->setText(OSDs.at(0).PlainText);
-
-}
-
-struOSD MainWindow::getUIOsd(){
-    struOSD osd = {0};
-    int index = ui->comboBox_Position->currentIndex();
-    if(index == 0){
-        osd.PositionType = "Custom";
-        osd.x = ui->comboBox_x->currentText().toFloat();
-        osd.y = ui->comboBox_y->currentText().toFloat();
+    if(OSDs.empty()){
+        return;
     }
-    else{
-        switch(index){
-        case 1:
-            osd.PositionType = "UpperLeft";
-            break;
-        case 2:
-            osd.PositionType = "UpperRight";
-            break;
-        case 3:
-            osd.PositionType = "LowerLeft";
-            break;
-        case 4:
-            osd.PositionType = "LowerRight";
-            break;
-        default:
-            break;
-        }
+    ui->comboBox_osdtoken->clear();
+    for(auto _osd : OSDs){
+
+        ui->comboBox_osdtoken->addItem( _osd.token);
     }
 
 
-    osd.PlainText= ui->lineEdit_plaintext->text();
-    osd.FontSize = ui->comboBox_fontsize->currentText().toFloat();
-
-    return osd;
 
 }
 /*
@@ -462,26 +458,68 @@ PositionType:
     LowerRight 右下
     Custom 自定义
 */
+struOSD MainWindow::getOSDParam(){
+    struOSD osd = {0};
+    int index = ui->comboBox_Position->currentIndex();
+    switch(index){
+    case 0:
+        osd.PositionType = "Custom";
+        osd.x = ui->comboBox_x->currentText().toFloat();
+        osd.y = ui->comboBox_y->currentText().toFloat();
+        break;
+    case 1:
+        osd.PositionType = "UpperLeft";
+        break;
+    case 2:
+        osd.PositionType = "UpperRight";
+        break;
+    case 3:
+        osd.PositionType = "LowerLeft";
+        break;
+    case 4:
+        osd.PositionType = "LowerRight";
+        break;
+    default:
+        break;
+    }
+
+    osd.PlainText= ui->lineEdit_plaintext->text();
+    osd.FontSize = ui->comboBox_fontsize->currentText().toFloat();
+    osd.token = ui->comboBox_osdtoken->currentText();
+    return osd;
+
+}
+
 void MainWindow::on_pushButton_AddOSD_clicked()
 {
-    struOSD osd = getUIOsd();
+    struOSD osd = getOSDParam();
     //创建OSD成功后,会返回设备上标识的OSD token
     osd.token = onvifdevice->CreateOSD(osd);
+    on_pushButton_GetOSD_clicked();
 }
 
 
 void MainWindow::on_pushButton_ModifyOSD_clicked()
 {
-    struOSD osd = getUIOsd();
-    osd.token = ui->lineEdit_token->text();
+    struOSD osd = getOSDParam();
+    osd.token = ui->comboBox_osdtoken->currentText();
     onvifdevice->SetOSD(osd);
+//    for(int i =0;i < 10000;i++){
+//        osd.PlainText = QString::number(i);
+
+//    }
+
 }
 
 
 void MainWindow::on_pushButton_DelOSD_clicked()
 {
+    int index = ui->comboBox_osdtoken->currentIndex();
 
-    onvifdevice->DelOSD(ui->lineEdit_token->text());
+    bool ret = onvifdevice->DelOSD(ui->comboBox_osdtoken->currentData(index).toString());
+    if(ret){
+        on_pushButton_GetOSD_clicked();
+    }
 }
 
 
@@ -495,12 +533,12 @@ void MainWindow::on_comboBox_Position_currentIndexChanged(int index)
 
 
         ui->comboBox_x->setEnabled(false);
-           ui->comboBox_y->setEnabled(false);
+        ui->comboBox_y->setEnabled(false);
     }
     else{
 
         ui->comboBox_x->setEnabled(true);
-           ui->comboBox_y->setEnabled(true);
+        ui->comboBox_y->setEnabled(true);
     }
 }
 
@@ -509,4 +547,7 @@ void MainWindow::on_pushButton_SystemReboot_clicked()
 {
     onvifdevice->SystemReboot();
 }
+
+
+
 
