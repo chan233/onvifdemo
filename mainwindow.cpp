@@ -81,14 +81,39 @@ void MainWindow::on_pushButton_Probe_clicked()
 void MainWindow::on_pushButton_GetPresets_clicked()
 {
 
-    onvifdevice->GetPresets();
+    QVector<Preset> presets;
+    bool ret = onvifdevice->GetPresets(presets);
+
+    if(ret == false){
+        return;
+    }
+
+    auto count = 0;
+    ui->tableWidget_preset->setRowCount(presets.size());//设置列数
+    for(auto p :presets){
+        QTableWidgetItem *name = new QTableWidgetItem() ;
+        QTableWidgetItem *token = new QTableWidgetItem() ;
+        name->setText(p.name);
+        token->setText(p.token);
+
+        ui->tableWidget_preset->setItem(count,0,name);
+        ui->tableWidget_preset->setItem(count,1,token);
+        ++count;
+    }
+
+
+
+
+
+
 }
 
 
 void MainWindow::on_pushButton_SetPreset_clicked()
 {
-
-    onvifdevice->SetPreset();
+    QString result;
+    onvifdevice->SetPreset(result);
+    on_pushButton_GetPresets_clicked();
 }
 
 
@@ -154,40 +179,40 @@ void MainWindow::on_pushButton_up_clicked()
     //        onvifdevice->RelativeMove(x,y,speed);
     //    }
 
-    onvifdevice->ContinuousMove(0,1,2);
+    onvifdevice->ContinuousMove(0,1);
 }
 
 void MainWindow::on_pushButton_down_clicked()
 {
 
-    onvifdevice->ContinuousMove(0,-1,2);
+    onvifdevice->ContinuousMove(0,-1);
 }
 void MainWindow::on_pushButton_leftup_clicked()
 {
-    onvifdevice->ContinuousMove(1,1,2);
+    onvifdevice->ContinuousMove(1,1);
 
 }
 
 void MainWindow::on_pushButton_rightup_clicked()
 {
-    onvifdevice->ContinuousMove(-1,1,2);
+    onvifdevice->ContinuousMove(-1,1);
 }
 
 
 void MainWindow::on_pushButton_left_clicked()
 {
-    onvifdevice->ContinuousMove(1,0,2);
+    onvifdevice->ContinuousMove(1,0);
 }
 
 void MainWindow::on_pushButton_right_clicked()
 {
 
-    onvifdevice->ContinuousMove(-1,0,2);
+    onvifdevice->ContinuousMove(-1,0);
 }
 
 void MainWindow::on_pushButton_reset_clicked()
 {
-    onvifdevice->ContinuousMove(0,0,2);
+    onvifdevice->ContinuousMove(0,0);
 
 }
 
@@ -196,7 +221,7 @@ void MainWindow::on_pushButton_reset_clicked()
 
 void MainWindow::on_pushButton_leftdown_clicked()
 {
-    onvifdevice->ContinuousMove(1,-1,2);
+    onvifdevice->ContinuousMove(1,-1);
 }
 
 
@@ -205,7 +230,7 @@ void MainWindow::on_pushButton_leftdown_clicked()
 void MainWindow::on_pushButton_rightdown_clicked()
 {
 
-    onvifdevice->ContinuousMove(-1,-1,2);
+    onvifdevice->ContinuousMove(-1,-1);
 }
 
 
@@ -226,7 +251,7 @@ void MainWindow::on_pushButton_zoomin_clicked()
 
 void MainWindow::on_pushButton_fin_clicked()
 {
-      onvifdevice->FocusMove(1);
+    onvifdevice->FocusMove(1);
 }
 
 void MainWindow::on_pushButton_fout_clicked()
@@ -416,21 +441,52 @@ void MainWindow::on_pushButton_right_released()
 void MainWindow::on_pushButton_init_clicked()
 {
 
-    mPtzurl = ui->comboBox_2->itemText(0);
+
     QString name =  ui->lineEdit_username->text();
     QString passwd = ui->lineEdit_password->text();
     if(!init){
-        onvifdevice = new OnvifDevice(mPtzurl);
-        qDebug()<<"current url :"<<mPtzurl;
-        onvifdevice->SetAuth(name,passwd);
-        onvifdevice->Initialize();
-        init= true;
-        on_pushButton_GetImagingSettings_clicked();
+
+        QString addresss = ui->lineEdit_ip->text();
+        auto devices = OnvifDevice::MulticastProbe(addresss);
+        for  (auto device : devices){
+
+            if(device.indexOf(addresss)){
+
+                mPtzurl = device;
+                ui->lineEdit_xaddr->setText(mPtzurl.toString());
+
+                // QString xaddr = "http://" + addresss + "/onvif/device_service";
+                onvifdevice = new OnvifDevice(QUrl(mPtzurl));
+                qDebug()<<"current url :"<<mPtzurl;
+                onvifdevice->SetAuth(name,passwd);
+
+                onvifdevice->Initialize(ui->comboBox_timeout->currentText().toInt());
+
+                init= true;
+
+                auto profiles = onvifdevice->GetAllProfiles();
+                setProfiles(profiles);
+                //on_pushButton_GetImagingSettings_clicked();
+            }
+
+        }
+
+
+
     }
 
 
 }
 
+
+void MainWindow::setProfiles(const QVector<QString> &profiles){
+
+    ui->comboBox_profiles->clear();
+    for(auto profile : profiles){
+        ui->comboBox_profiles->addItem(profile);
+    }
+
+}
 void MainWindow::on_pushButton_GetOSD_clicked()
 {
     QVector<struOSD> OSDs;
@@ -494,7 +550,8 @@ void MainWindow::on_pushButton_AddOSD_clicked()
 {
     struOSD osd = getOSDParam();
     //创建OSD成功后,会返回设备上标识的OSD token
-    osd.token = onvifdevice->CreateOSD(osd);
+
+    bool ret = onvifdevice->CreateOSD(osd,osd.token);
     on_pushButton_GetOSD_clicked();
 }
 
@@ -504,19 +561,19 @@ void MainWindow::on_pushButton_ModifyOSD_clicked()
     struOSD osd = getOSDParam();
     osd.token = ui->comboBox_osdtoken->currentText();
     onvifdevice->SetOSD(osd);
-//    for(int i =0;i < 10000;i++){
-//        osd.PlainText = QString::number(i);
+    //    for(int i =0;i < 10000;i++){
+    //        osd.PlainText = QString::number(i);
 
-//    }
+    //    }
 
 }
 
 
 void MainWindow::on_pushButton_DelOSD_clicked()
 {
-    int index = ui->comboBox_osdtoken->currentIndex();
 
-    bool ret = onvifdevice->DelOSD(ui->comboBox_osdtoken->currentData(index).toString());
+
+    bool ret = onvifdevice->DelOSD(ui->comboBox_osdtoken->currentText());
     if(ret){
         on_pushButton_GetOSD_clicked();
     }
@@ -551,3 +608,101 @@ void MainWindow::on_pushButton_SystemReboot_clicked()
 
 
 
+
+
+void MainWindow::on_pushButton_getservice_clicked()
+{
+    auto addresss  = onvifdevice->GetServiceAddress();
+
+    QTableWidgetItem *item0 = new QTableWidgetItem() ;
+    QTableWidgetItem *item1 = new QTableWidgetItem() ;
+    QTableWidgetItem *item2 = new QTableWidgetItem() ;
+    QTableWidgetItem *item3 = new QTableWidgetItem() ;
+    QTableWidgetItem *item4 = new QTableWidgetItem() ;
+    QTableWidgetItem *item5 = new QTableWidgetItem() ;
+
+    item0->setText(addresss.ipAddress);
+    item1->setText(addresss.xAddresss);
+    item2->setText(addresss.ptzAddresss);
+    item3->setText(addresss.mediadresss);
+    item4->setText(addresss.eventAddresss);
+
+
+    bool ret = onvifdevice->GetStreamUri(addresss.rtspaddress);
+    if(ret){
+        item5->setText(addresss.rtspaddress);
+    }
+
+
+    ui->tableWidget_service->setItem(0,0,item0);
+    ui->tableWidget_service->setItem(1,0,item1);
+    ui->tableWidget_service->setItem(2,0,item2);
+    ui->tableWidget_service->setItem(3,0,item3);
+    ui->tableWidget_service->setItem(4,0,item4);
+    ui->tableWidget_service->setItem(5,0,item5);
+}
+
+void MainWindow::on_pushButton_DelPresets_clicked()
+{
+    if(ui->tableWidget_preset->rowCount() == 0){
+        return;
+    }
+    if(mCurrentColumn != 1){
+        return;
+    }
+    auto item = ui->tableWidget_preset->item(mCurrentRow,mCurrentColumn);
+
+    onvifdevice->RemovePreset(item->text());
+    on_pushButton_GetPresets_clicked();
+}
+
+void MainWindow::on_tableWidget_preset_cellClicked(int row, int column)
+{
+    mCurrentRow = row;
+    mCurrentColumn = column;
+}
+
+void MainWindow::on_pushButton_getallprofiles_clicked()
+{
+    auto profiles = onvifdevice->GetAllProfiles();
+    setProfiles(profiles);
+}
+
+void MainWindow::on_comboBox_profiles_currentIndexChanged(int index)
+{
+    onvifdevice->SetTokenIndex(index);
+}
+
+void MainWindow::on_pushButton_getvideosource_clicked()
+{
+    auto source = onvifdevice->GetAllVideoSource();
+    setVideoSource(source);
+}
+
+
+void MainWindow::setVideoSource(const QVector<QString> &source){
+
+    ui->comboBox_videosource->clear();
+    for(auto s : source){
+        ui->comboBox_videosource->addItem(s);
+    }
+
+}
+void MainWindow::on_comboBox_videosource_currentIndexChanged(int index)
+{
+    onvifdevice->SetVideoSourceTokenIndex(index);
+
+}
+
+void MainWindow::on_comboBox_5_currentIndexChanged(const QString &arg1)
+{
+
+}
+
+void MainWindow::on_pushButton_release_clicked()
+{
+    delete onvifdevice;
+    onvifdevice = nullptr;
+    init= false;
+
+}

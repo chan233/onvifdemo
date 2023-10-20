@@ -4,6 +4,13 @@
 #include <QLocale>
 #include <QTranslator>
 
+#define __TEST__ 0
+
+#if __TEST__
+#include "testclass.h"
+
+    QTEST_MAIN(TestClass);
+#else
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
@@ -21,3 +28,10 @@ int main(int argc, char *argv[])
     w.show();
     return a.exec();
 }
+
+#endif
+
+
+
+
+

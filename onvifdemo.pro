@@ -1,4 +1,4 @@
-QT       += core gui network
+QT       += core gui network testlib
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -14,6 +14,7 @@ SOURCES += \
     mainwindow.cpp \
     #player.cpp \
     #viedoframe.cpp
+    testclass.cpp
 
 HEADERS += \
     OnvifDevice.h \
@@ -21,6 +22,7 @@ HEADERS += \
     #player.h \
     #viedoframe.h
     #onvifheads.h
+    testclass.h
 
 FORMS += \
     mainwindow.ui\
@@ -73,11 +75,13 @@ win32{
     }
 }
 else{
-INCLUDEPATH += /home/glhr/Desktop/env/libONVIF/build/install/debug/include
-        LIBS += -L/home/glhr/Desktop/env/libONVIF/build/install/debug/lib -lonvifanalyticsd -lonvifcommond  -lonvifdiscoveryd\
--lonvifdisplayd -lonvifeventd -lonvifimagingd -lonvifmedia2d -lonvifmediad -lonvifptzd \
--lonvifreceiverd -lonvifrecordingd -lonvifreplayd -lonvifdeviced #-lonvifManagerd
-QMAKE_LFLAGS += -Wl,-rpath=./
+        INCLUDEPATH += /home/glhr/Desktop/libONVIF/build/install/debug/include
+
+        LIBS += -L/home/glhr/Desktop/libONVIF/build/install/debug/lib -lonvifanalyticsd -lonvifcommond  -lonvifdiscoveryd\
+            -lonvifdisplayd -lonvifeventd -lonvifimagingd -lonvifmedia2d -lonvifmediad -lonvifptzd \
+            -lonvifreceiverd -lonvifrecordingd -lonvifreplayd -lonvifdeviced #-lonvifManagerd
+
+        QMAKE_LFLAGS += -Wl,-rpath=./
 
 }
 

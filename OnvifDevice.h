@@ -21,86 +21,122 @@
 
 #include "OnvifDeviceExport.h"
 typedef  struct struOSD {
-	QString token;
-	QString PlainText;
-	QString PositionType;
-	float x;
-	float y;
-	int FontSize;
+    QString token;
+    QString PlainText;
+    QString PositionType;
+    float x;
+    float y;
+    int FontSize;
 }struOSD;
+typedef  struct ServciceAddress {
+    QString ipAddress;
+    QString xAddresss;
+    QString ptzAddresss;
+    QString mediadresss;
+    QString imageAddresss;
+    QString eventAddresss;
+    QString rtspaddress;
+
+}ServciceAddress;
+typedef  struct Preset {
+    QString token;
+    QString name;
+
+
+}Preset;
 struct OnvifDevicePrivate;
+
+
+
+
 
 class  /*__declspec(dllexport)*/ OnvifDevice : public QObject {
 
-	//Q_OBJECT
-		//init
+    //Q_OBJECT
+    //init
 
 public:
-	OnvifDevice(const QUrl &rDeviceEndpoint, QObject *pParent = nullptr);
-	virtual ~OnvifDevice();
-	void SetAuth(const QString &rUserName, const QString &rPassword, AuthMode mode = AUTO);
-	SimpleResponse Initialize();
-	SimpleResponse InitializeTopicSet();
+    OnvifDevice(const QUrl &rDeviceEndpoint, QObject *pParent = nullptr);
+    virtual ~OnvifDevice();
+    void SetAuth(const QString &rUserName, const QString &rPassword, AuthMode mode = AUTO);
+    SimpleResponse Initialize(int timems);
+    SimpleResponse InitializeTopicSet();
 
 private:
-	OnvifDevicePrivate *mpD;
+    OnvifDevicePrivate *mpD;
 
 
-	//interface
+    //interface
 public:
-	//probe
-	bool MulticastProbe();
-	bool UnicastProbe();
-	//ptz
-	bool RelativeMove(float x, float y, float speed);
-	bool AbsoluteMove(float x, float y, float speed = 1);
-    bool ContinuousMove(float x, float y, int flag = 1,float speed = 1);
-	bool StopMove();
-	bool ZoomIn(int x = -1);
-	bool ZoomOut(int x = 1);
-	bool StopZoom();
-	bool FocusMove(float fSpeed);
-	bool Stop();
-	//preset
-	bool GetPresets();
-	bool SetPreset();
-	bool GotoHomePosition();
-	bool SetHomePosition();
+    //probe
+    static QVector<QString> MulticastProbe(const QString &url = "239.255.255.250");
 
-	//images
-	// bool SetImagingSettings(float Brightness,float Contrast,float ColorSaturation,float Sharpness);
-	//bool GetImagingSettings();
-	bool SetBrightness(float Brightness);
-	bool SetContrast(float Contrast);
-	bool SetColorSaturation(float ColorSaturation);
-	bool SetSharpness(float Sharpness);
-	float GetBrightness();
-	float GetContrast();
-	float GetColorSaturation();
-	float GetSharpness();
+    //ptz
+
+    bool ContinuousMove(float x, float y,float speed = 1);
+    bool StopMove();
+    bool ZoomIn(int x = -1);
+    bool ZoomOut(int x = 1);
+    bool StopZoom();
+    bool FocusMove(float fSpeed);
+    bool Stop();
+
+    bool RelativeMove(float x, float y, float speed);
+    bool AbsoluteMove(float x, float y, float speed = 1);
+
+    //preset
+
+    bool GetPresets(QVector<Preset> &p);
+    bool SetPreset(QString &PresetToken);
+    bool RemovePreset(const QString &token);
+    bool SetHomePosition();
+    bool GotoHomePosition();
 
 
-	//host
-	QString GetHostname();
-	bool SetHostname(QString name);
-	bool GetNTP();
-	bool SetNTP();
-	bool GetSystemDateAndTime(QDateTime &dateTime);
-	bool SetSystemDateAndTime(const QDateTime& dateTime);
-	bool SystemReboot();
-    QString GetStreamUri();
-	//    bool SetIPAddressFilter();
-	//    bool SetNetworkDefaultGateway();
-	//    bool SetDNS();
-	//    bool GetIPAddressFilter();
-	//    bool GetNetworkDefaultGateway();
-	//    bool GetDNS();
+    //images
+    // bool SetImagingSettings(float Brightness,float Contrast,float ColorSaturation,float Sharpness);
+    //bool GetImagingSettings();
+    bool SetBrightness(float Brightness);
+    bool SetContrast(float Contrast);
+    bool SetColorSaturation(float ColorSaturation);
+    bool SetSharpness(float Sharpness);
+    float GetBrightness();
+    float GetContrast();
+    float GetColorSaturation();
+    float GetSharpness();
 
-	// OSD
-	bool  GetOSDs(QVector<struOSD>& osds);
-	QString CreateOSD(const struOSD &osdparm);       // 创建OSD，成功后会返回设备上标识的OSD token
-	bool SetOSD(const struOSD &osdparm);          //设置OSD。与CreateOSD基本一样，但该命令使用的是相机已经存在的OSDtoken
-	bool DelOSD(QString OSDToken);
+
+    //host
+    QString GetHostname();
+    bool SetHostname(QString name);
+    bool GetNTP();
+    bool SetNTP();
+    bool GetSystemDateAndTime(QDateTime &dateTime);
+    bool SetSystemDateAndTime(const QDateTime& dateTime);
+    bool SystemReboot();
+    bool GetStreamUri(QString &rtspurl);
+    ServciceAddress GetServiceAddress();
+    QVector<QString> GetAllProfiles();
+    void SetTokenIndex(int index);
+    int GetTokenIndex();
+    QVector<QString> GetAllVideoSource();
+    void SetVideoSourceTokenIndex(int index);
+    int GetVideoSourceTokenIndex();
+    bool GetPTZToken(QString &token);
+    bool GetVideSourceToken(QString &token);
+    //    bool SetIPAddressFilter();
+    //    bool SetNetworkDefaultGateway();
+    //    bool SetDNS();
+    //    bool GetIPAddressFilter();
+    //    bool GetNetworkDefaultGateway();
+    //    bool GetDNS();
+
+    // OSD
+    bool  GetOSDs(QVector<struOSD>& osds);
+    bool    CreateOSD(const struOSD &osdparm,QString &token);
+    bool SetOSD(const struOSD &osdparm);                //设置OSD。与CreateOSD基本一样，但该命令使用的是相机已经存在的OSDtoken
+
+    bool DelOSD(const QString &OSDToken);
 
 
 

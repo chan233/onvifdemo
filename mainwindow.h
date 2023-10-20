@@ -129,6 +129,24 @@ private slots:
 
     void on_pushButton_fout_clicked();
 
+
+
+    void on_pushButton_getservice_clicked();
+
+    void on_pushButton_DelPresets_clicked();
+
+    void on_tableWidget_preset_cellClicked(int row, int column);
+
+    void on_pushButton_getallprofiles_clicked();
+
+    void on_comboBox_profiles_currentIndexChanged(int index);
+
+    void on_pushButton_getvideosource_clicked();
+
+    void on_comboBox_5_currentIndexChanged(const QString &arg1);
+
+    void on_pushButton_release_clicked();
+
 private:
     void hideButton();
     struOSD getOSDParam();
@@ -144,5 +162,12 @@ private:
     OnvifDevice *onvifdevice;
     //ViedoFrame *videoframe;
     bool init = false;
+   int  mCurrentRow ;
+   int mCurrentColumn ;void on_comboBox_videosource_currentIndexChanged(int index);
+
+
+    void setProfiles(const QVector<QString> &profiles);
+    void setVideoSource(const QVector<QString> &source);
+
 };
 #endif // MAINWINDOW_H

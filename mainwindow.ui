@@ -24,331 +24,378 @@
        <attribute name="title">
         <string>搜索</string>
        </attribute>
-       <layout class="QVBoxLayout" name="verticalLayout_2">
+       <layout class="QVBoxLayout" name="verticalLayout">
         <item>
-         <layout class="QVBoxLayout" name="verticalLayout">
+         <layout class="QHBoxLayout" name="horizontalLayout" stretch="2,8">
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout" stretch="2,8">
-            <item>
-             <widget class="QLabel" name="label_username">
-              <property name="text">
-               <string>用户姓名</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLineEdit" name="lineEdit_username">
-              <property name="text">
-               <string>admin</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
+           <widget class="QLabel" name="label_username">
+            <property name="text">
+             <string>用户姓名</string>
+            </property>
+           </widget>
           </item>
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="2,8">
-            <item>
-             <widget class="QLabel" name="label_password">
-              <property name="text">
-               <string>用户密码</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLineEdit" name="lineEdit_password">
-              <property name="text">
-               <string>glhr12345</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
+           <widget class="QLineEdit" name="lineEdit_username">
+            <property name="text">
+             <string>admin</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="2,8">
+          <item>
+           <widget class="QLabel" name="label_password">
+            <property name="text">
+             <string>用户密码</string>
+            </property>
+           </widget>
           </item>
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="2,8">
-            <item>
-             <widget class="QLabel" name="label_NetworkInterface">
-              <property name="text">
-               <string>选择网卡</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QComboBox" name="comboBox_NetworkInterface"/>
-            </item>
-           </layout>
+           <widget class="QLineEdit" name="lineEdit_password">
+            <property name="text">
+             <string>glhr12345</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_52" stretch="2,8">
+          <item>
+           <widget class="QLabel" name="label">
+            <property name="text">
+             <string>ip:</string>
+            </property>
+           </widget>
           </item>
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="2,8">
-            <item>
-             <widget class="QLabel" name="label_4">
-              <property name="text">
-               <string>指定设备</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QComboBox" name="comboBox_2">
-              <item>
-               <property name="text">
-                <string>http://192.168.1.84/onvif/device_service</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>http://192.168.1.94/onvif/device_service</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>http://192.168.1.85:8080/onvif/device_service</string>
-               </property>
-              </item>
-             </widget>
-            </item>
-           </layout>
+           <widget class="QLineEdit" name="lineEdit_ip">
+            <property name="text">
+             <string>192.168.1.84</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="2,8">
+          <item>
+           <widget class="QLabel" name="label_4">
+            <property name="text">
+             <string>服务地址</string>
+            </property>
+           </widget>
           </item>
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="2,8">
-            <item>
-             <widget class="QLabel" name="label_5">
-              <property name="text">
-               <string>过滤设备</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QComboBox" name="comboBox_3"/>
-            </item>
-           </layout>
+           <widget class="QLineEdit" name="lineEdit_xaddr"/>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_7" stretch="2,8">
+          <item>
+           <widget class="QLabel" name="label_7">
+            <property name="text">
+             <string>超时时间</string>
+            </property>
+           </widget>
           </item>
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_6" stretch="2,8">
+           <widget class="QComboBox" name="comboBox_timeout">
+            <property name="currentIndex">
+             <number>1</number>
+            </property>
             <item>
-             <widget class="QLabel" name="label_6">
-              <property name="text">
-               <string>搜索间隔</string>
-              </property>
-             </widget>
+             <property name="text">
+              <string>1000</string>
+             </property>
             </item>
             <item>
-             <widget class="QComboBox" name="comboBox_4">
-              <property name="currentIndex">
-               <number>5</number>
-              </property>
-              <item>
-               <property name="text">
-                <string>1</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>2</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>3</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>4</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>100</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>300</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>500</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>1000</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>2000</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>3000</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>5000</string>
-               </property>
-              </item>
-             </widget>
+             <property name="text">
+              <string>1500</string>
+             </property>
             </item>
-           </layout>
+            <item>
+             <property name="text">
+              <string>2000</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>3000</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>5000</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>8000</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="2,8">
+          <item>
+           <widget class="QLabel" name="label_NetworkInterface">
+            <property name="text">
+             <string>选择网卡</string>
+            </property>
+           </widget>
           </item>
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_7" stretch="2,8">
-            <item>
-             <widget class="QLabel" name="label_7">
-              <property name="text">
-               <string>超时时间</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QComboBox" name="comboBox_5">
-              <property name="currentIndex">
-               <number>1</number>
-              </property>
-              <item>
-               <property name="text">
-                <string>1000</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>1500</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>2000</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>3000</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>5000</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>8000</string>
-               </property>
-              </item>
-             </widget>
-            </item>
-           </layout>
+           <widget class="QComboBox" name="comboBox_NetworkInterface"/>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="2,8">
+          <item>
+           <widget class="QLabel" name="label_5">
+            <property name="text">
+             <string>过滤设备</string>
+            </property>
+           </widget>
           </item>
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_8" stretch="2,8">
-            <item>
-             <widget class="QLabel" name="label_8">
-              <property name="text">
-               <string>搜索策略</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QComboBox" name="comboBox_6">
-              <item>
-               <property name="text">
-                <string>自动清空</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>设备累加</string>
-               </property>
-              </item>
-             </widget>
-            </item>
-           </layout>
+           <widget class="QComboBox" name="comboBox_3"/>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_6" stretch="2,8">
+          <item>
+           <widget class="QLabel" name="label_6">
+            <property name="text">
+             <string>搜索间隔</string>
+            </property>
+           </widget>
           </item>
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_9" stretch="2,8">
+           <widget class="QComboBox" name="comboBox_4">
+            <property name="currentIndex">
+             <number>5</number>
+            </property>
             <item>
-             <widget class="QLabel" name="label_9">
-              <property name="text">
-               <string>设备列表</string>
-              </property>
-             </widget>
+             <property name="text">
+              <string>1</string>
+             </property>
             </item>
             <item>
-             <widget class="QComboBox" name="comboBox_7"/>
+             <property name="text">
+              <string>2</string>
+             </property>
             </item>
-           </layout>
+            <item>
+             <property name="text">
+              <string>3</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>4</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>100</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>300</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>500</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>1000</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>2000</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>3000</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>5000</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_8" stretch="2,8">
+          <item>
+           <widget class="QLabel" name="label_8">
+            <property name="text">
+             <string>搜索策略</string>
+            </property>
+           </widget>
           </item>
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_10" stretch="2,8">
+           <widget class="QComboBox" name="comboBox_6">
             <item>
-             <widget class="QLabel" name="label_10">
-              <property name="text">
-               <string>配置文件</string>
-              </property>
-             </widget>
+             <property name="text">
+              <string>自动清空</string>
+             </property>
             </item>
             <item>
-             <widget class="QComboBox" name="comboBox_8"/>
+             <property name="text">
+              <string>设备累加</string>
+             </property>
             </item>
-           </layout>
+           </widget>
           </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_9" stretch="2,8">
+          <item>
+           <widget class="QLabel" name="label_9">
+            <property name="text">
+             <string>设备列表</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="comboBox_7"/>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_10" stretch="2,8">
+          <item>
+           <widget class="QLabel" name="label_profiles">
+            <property name="text">
+             <string>配置文件</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="comboBox_profiles"/>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_54">
           <item>
            <widget class="QPushButton" name="pushButton_init">
             <property name="text">
-             <string>init</string>
+             <string>初始化</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="label_11">
+           <widget class="QPushButton" name="pushButton_release">
             <property name="text">
-             <string>TextLabel</string>
+             <string>释放</string>
             </property>
            </widget>
           </item>
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_11">
-            <item>
-             <widget class="QPushButton" name="pushButton_boradcast">
-              <property name="text">
-               <string>广播搜索</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="pushButton_Probe">
-              <property name="text">
-               <string>单播搜索</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_12">
-            <item>
-             <widget class="QPushButton" name="pushButton_GetInformation">
-              <property name="text">
-               <string>一键获取</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="pushButton_GetDeviceInformation">
-              <property name="text">
-               <string>设备信息</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item>
-           <widget class="QTextBrowser" name="textBrowser"/>
+           <widget class="QPushButton" name="pushButton_getallprofiles">
+            <property name="text">
+             <string>获取配置文件</string>
+            </property>
+           </widget>
           </item>
          </layout>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_11">
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_11">
+          <item>
+           <widget class="QPushButton" name="pushButton_boradcast">
+            <property name="text">
+             <string>广播搜索</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_Probe">
+            <property name="text">
+             <string>单播搜索</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_12">
+          <item>
+           <widget class="QPushButton" name="pushButton_GetInformation">
+            <property name="text">
+             <string>一键获取</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_GetDeviceInformation">
+            <property name="text">
+             <string>设备信息</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton_getservice">
+          <property name="text">
+           <string>获取服务地址</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QTableWidget" name="tableWidget_service">
+          <property name="rowCount">
+           <number>6</number>
+          </property>
+          <attribute name="horizontalHeaderDefaultSectionSize">
+           <number>200</number>
+          </attribute>
+          <attribute name="horizontalHeaderMinimumSectionSize">
+           <number>200</number>
+          </attribute>
+          <attribute name="verticalHeaderDefaultSectionSize">
+           <number>30</number>
+          </attribute>
+          <row/>
+          <row/>
+          <row/>
+          <row/>
+          <row/>
+          <row/>
+          <column>
+           <property name="text">
+            <string>address</string>
+           </property>
+          </column>
+         </widget>
         </item>
        </layout>
       </widget>
@@ -597,12 +644,19 @@
                   </widget>
                  </item>
                  <item>
-                  <widget class="QComboBox" name="comboBox_10"/>
+                  <widget class="QComboBox" name="comboBox_videosource"/>
                  </item>
                 </layout>
                </item>
                <item>
                 <layout class="QHBoxLayout" name="horizontalLayout_25">
+                 <item>
+                  <widget class="QPushButton" name="pushButton_getvideosource">
+                   <property name="text">
+                    <string>获取配置</string>
+                   </property>
+                  </widget>
+                 </item>
                  <item>
                   <widget class="QPushButton" name="pushButton_SetImagingSettings">
                    <property name="text">
@@ -792,7 +846,18 @@
              <item>
               <layout class="QVBoxLayout" name="verticalLayout_11">
                <item>
-                <widget class="QListView" name="listView"/>
+                <widget class="QTableWidget" name="tableWidget_preset">
+                 <column>
+                  <property name="text">
+                   <string>name</string>
+                  </property>
+                 </column>
+                 <column>
+                  <property name="text">
+                   <string>token</string>
+                  </property>
+                 </column>
+                </widget>
                </item>
                <item>
                 <widget class="QLineEdit" name="lineEdit_12"/>
@@ -810,6 +875,13 @@
                   <widget class="QPushButton" name="pushButton_SetPreset">
                    <property name="text">
                     <string>添加预置位</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="pushButton_DelPresets">
+                   <property name="text">
+                    <string>删除预置位</string>
                    </property>
                   </widget>
                  </item>
